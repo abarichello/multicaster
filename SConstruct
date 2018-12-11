@@ -1,0 +1,10 @@
+Program(
+    "caster",
+    Glob("src/*.cpp"),
+    LIBS=[
+        "stdc++",
+        "sfml-graphics",
+        "sfml-window",
+        "sfml-system"
+        ]
+)

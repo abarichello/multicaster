@@ -1,0 +1,19 @@
+image: barichello/sfml:latest
+
+stages:
+  - test
+  - build
+
+# test_project:
+#   stage: test
+#   script:
+#  -
+
+build-project:
+  stage: build
+  script:
+    - scons
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - caster**
