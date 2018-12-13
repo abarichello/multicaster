@@ -9,7 +9,7 @@ stages:
 #   script:
 #  -
 
-build-project:
+build-linux:
   stage: build
   script:
     - scons
