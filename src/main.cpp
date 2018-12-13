@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 
+#include "Game.h"
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(1366, 768), "multicaster");
-    sf::CircleShape circle(100.0f);
-    circle.setFillColor(sf::Color::Green);
+    Game game;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -13,7 +14,7 @@ int main() {
             }
 
             window.clear(sf::Color::Black);
-            window.draw(circle);
+            game.Draw(window);
             window.display();
         }
     }

@@ -1,10 +1,13 @@
+# Generated files
+caster
+
+# Dependencies
 SFML**
 
 # Scons
 .sconsign.dblite
 
 ### C++ ###
-caster
 
 # Prerequisites
 *.d
