@@ -1,6 +1,9 @@
 # Generated files
 caster
 
+# VSCode
+*.code-workspace
+
 # Dependencies
 SFML**
 
