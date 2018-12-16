@@ -5,6 +5,7 @@ env = Environment(ENV = {"PATH": os.environ["PATH"]})
 
 LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system"]
 WIN_LIBS = ["sfml-graphics", "sfml-window", "sfml-system"]
+WIN_FLAGS = "/O2 /std:c++17 /W2"
 FILENAME = "caster"
 GLOB = "src/*.cpp"
 
@@ -22,9 +23,10 @@ def build_windows():
     Program(
         FILENAME,
         Glob(GLOB),
+        CXXFLAGS = WIN_FLAGS,
         LIBS=WIN_LIBS,
         CPPPATH = "./SFML-2.5.1/include",
-        LIBPATH = "./SFML-2.5.1/lib"
+        LIBPATH = "./SFML-2.5.1/lib",
     )
 
 if platform.startswith("win"):

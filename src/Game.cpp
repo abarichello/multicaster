@@ -1,12 +1,9 @@
 #include "Game.h"
 #include "GLOBAL.h"
 
-Game::Game() : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen) {
+Game::Game() : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen), player1() {
     this->window.setFramerateLimit(Global::MAX_FRAMERATE);
     this->window.setVerticalSyncEnabled(true);
-
-    this->circle.setRadius(100.0f);
-    this->circle.setFillColor(sf::Color::Green);
 }
 
 void Game::run() {
@@ -14,6 +11,7 @@ void Game::run() {
 
     while (window.isOpen()) {
         sf::Time delta = clock.restart();
+
         this->event();
         this->process(delta);
         this->draw();
@@ -28,6 +26,8 @@ void Game::event() {
                 window.close();
                 break;
             case sf::Event::KeyPressed:
+                this->player1.event(event);
+
                 if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
                 }
@@ -37,10 +37,11 @@ void Game::event() {
 }
 
 void Game::process(sf::Time delta) {
+    this->player1.process(delta);
 }
 
 void Game::draw() {
     window.clear(sf::Color::Black);
-    window.draw(this->circle);
+    this->player1.draw(window);
     window.display();
 }

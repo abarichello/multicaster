@@ -2,6 +2,8 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "Player.h"
+
 class Game {
 public:
     Game();
@@ -14,5 +16,5 @@ private:
     void draw();
 
     sf::RenderWindow window;
-    sf::CircleShape circle;
+    Player player1;
 };
