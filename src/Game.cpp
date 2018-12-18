@@ -2,8 +2,8 @@
 #include "GLOBAL.h"
 
 Game::Game() : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen), player1() {
-    this->window.setFramerateLimit(Global::MAX_FRAMERATE);
-    this->window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(Global::MAX_FRAMERATE);
+    window.setVerticalSyncEnabled(true);
 }
 
 void Game::run() {
@@ -11,9 +11,9 @@ void Game::run() {
 
     while (window.isOpen()) {
         float delta = clock.restart().asSeconds();
-        this->event();
-        this->process(delta);
-        this->draw();
+        event();
+        process(delta);
+        draw();
     }
 }
 
@@ -34,11 +34,11 @@ void Game::event() {
 }
 
 void Game::process(float delta) {
-    this->player1.process(delta);
+    player1.process(delta);
 }
 
 void Game::draw() {
     window.clear(sf::Color::Black);
-    this->player1.draw(window);
+    player1.draw(window);
     window.display();
 }
