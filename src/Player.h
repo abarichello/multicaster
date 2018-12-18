@@ -7,8 +7,8 @@ public:
     Player();
     Player(sf::Vector2f startPosition);
 
-    void event(sf::Event& event);
-    void process(sf::Time delta);
+    void input(float delta);
+    void process(float delta);
     void draw(sf::RenderWindow& window);
 
     sf::Vector2f position;

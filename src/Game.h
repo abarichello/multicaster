@@ -12,7 +12,7 @@ public:
 
 private:
     void event();
-    void process(sf::Time delta);
+    void process(float delta);
     void draw();
 
     sf::RenderWindow window;

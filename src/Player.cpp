@@ -13,19 +13,23 @@ Player::Player(sf::Vector2f startPosition) {
     this->position = startPosition;
 }
 
-void Player::event(sf::Event& event) {
-    if (event.key.code == sf::Keyboard::W) {
-        this->position.x += 1000.0f;
+void Player::input(float delta) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
     }
-    if (event.key.code == sf::Keyboard::S) {
-        this->position.y -= 1000.0f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
     }
 }
 
-void Player::process(sf::Time delta) {
-    this->lines.clear();
+void Player::process(float delta) {
+    this->input(delta);
 
+    this->lines.clear();
     for (int i = 0; i < screenRes.width; ++i) {
+        // Rays initial positions
         sf::Vector2f rayPos = this->position;
         sf::Vector2i worldPos(this->position);
 
@@ -52,6 +56,7 @@ void Player::process(sf::Time delta) {
             sideDist.y = (worldPos.y + 1 - rayPos.y) * deltaDist.y;
         }
 
+        // Cast rays until hitting a wall
         bool hit, horizontal;
         while (!hit) {
             if (sideDist.x < sideDist.y) {
@@ -76,6 +81,7 @@ void Player::process(sf::Time delta) {
             perpWallDist = std::fabs(((float)worldPos.y - rayPos.y + (1.0f - (float)step.y) / 2.0f) / rayDir.y);
         }
 
+        // Determine line height
         int lineHeight = std::abs(screenRes.height / perpWallDist);
         int drawStart = -lineHeight / 2 + screenRes.height / 2;
         if (drawStart < 0) {
@@ -86,6 +92,7 @@ void Player::process(sf::Time delta) {
             drawEnd = screenRes.height - 1;
         }
 
+        // Draw columns
         this->lines.append(sf::Vertex(sf::Vector2f((float)i, (float)drawStart), sf::Color::Red));
         this->lines.append(sf::Vertex(sf::Vector2f((float)i, (float)drawEnd), sf::Color::Red));
     }

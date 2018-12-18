@@ -10,8 +10,7 @@ void Game::run() {
     sf::Clock clock;
 
     while (window.isOpen()) {
-        sf::Time delta = clock.restart();
-
+        float delta = clock.restart().asSeconds();
         this->event();
         this->process(delta);
         this->draw();
@@ -26,8 +25,6 @@ void Game::event() {
                 window.close();
                 break;
             case sf::Event::KeyPressed:
-                this->player1.event(event);
-
                 if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
                 }
@@ -36,7 +33,7 @@ void Game::event() {
     }
 }
 
-void Game::process(sf::Time delta) {
+void Game::process(float delta) {
     this->player1.process(delta);
 }
 
