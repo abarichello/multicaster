@@ -5,7 +5,11 @@
 #include "Player.h"
 
 Player::Player()
-    : position(2.0f, 2.0f), direction(0.0f, 1.0f), plane(-0.65f, 0.0f), lines(sf::Lines, screenRes.width) {
+    : position(2.0f, 2.0f),
+      direction(0.0f, 1.0f),
+      plane(-0.65f, 0.0f),
+      lines(sf::Lines, screenRes.width),
+      debug(sf::Vector2f(0.0f, 30.0f)) {
 }
 
 Player::Player(sf::Vector2f startPosition) {
@@ -118,9 +122,8 @@ void Player::raycast() {
         }
 
         if (debugMode) {
-            std::string debugText = "DELTA: " + std::to_string(delta) +
-                                    "\nPositionX: " + std::to_string(position.x) +
-                                    " PositionY: " + std::to_string(position.y);
+            std::string debugText =
+                "PositionX: " + std::to_string(position.x) + " PositionY: " + std::to_string(position.y);
             debug.setText(debugText);
         }
 

@@ -1,17 +1,18 @@
 #include "Debug.h"
 #include "GLOBAL.h"
 
-Debug::Debug() {
+Debug::Debug(sf::Vector2f textPosition) {
     debugFont.loadFromFile(Global::DEBUG_FONT_PATH);
-    fpsText.setFont(debugFont);
-    fpsText.setCharacterSize(35);
-    fpsText.setFillColor(sf::Color::White);
+    debugText.setFont(debugFont);
+    debugText.setCharacterSize(35);
+    debugText.setFillColor(sf::Color::White);
+    debugText.setPosition(textPosition);
 }
 
-void Debug::setText(std::string text) {
-    fpsText.setString(text);
+void Debug::setText(std::string& text) {
+    debugText.setString(text);
 }
 
 void Debug::draw(sf::RenderWindow& window) {
-    window.draw(fpsText);
+    window.draw(debugText);
 }

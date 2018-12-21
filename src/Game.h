@@ -2,6 +2,7 @@
 
 #include "SFML/Graphics.hpp"
 
+#include "FPS.h"
 #include "Player.h"
 
 class Game {
@@ -16,5 +17,6 @@ private:
     void draw();
 
     sf::RenderWindow window;
+    FPS fps;
     Player player1;
 };

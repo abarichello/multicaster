@@ -1,15 +1,17 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 
 #include <string>
 
 class Debug {
 public:
-    Debug();
+    Debug(sf::Vector2f textPosition = sf::Vector2f(0.0f, 0.0f));
 
-    void setText(std::string text);
+    void setText(std::string& text);
     void draw(sf::RenderWindow& window);
 
-private:
+protected:
     sf::Font debugFont;
-    sf::Text fpsText;
+    sf::Text debugText;
 };
