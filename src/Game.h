@@ -17,6 +17,5 @@ private:
     void draw();
 
     sf::RenderWindow window;
-    FPS fps;
     Player player1;
 };

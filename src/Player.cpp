@@ -9,6 +9,7 @@ Player::Player()
       direction(0.0f, 1.0f),
       plane(-0.65f, 0.0f),
       lines(sf::Lines, screenRes.width),
+      fps(),
       debug(sf::Vector2f(0.0f, 30.0f)) {
 }
 
@@ -42,6 +43,7 @@ void Player::process(float delta) {
     this->delta = delta;
     input();
     raycast();
+    fps.process(delta);
 }
 
 void Player::raycast() {
@@ -136,6 +138,7 @@ void Player::raycast() {
 void Player::draw(sf::RenderWindow& window) {
     window.draw(lines);
     if (debugMode) {
+        fps.draw(window);
         debug.draw(window);
     }
 }

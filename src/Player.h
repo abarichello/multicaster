@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Debug.h"
+#include "FPS.h"
 
 class Player {
 public:
@@ -63,5 +64,6 @@ private:
     };
 
     Debug debug;
+    FPS fps;
     bool debugMode = true;
 };

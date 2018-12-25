@@ -5,7 +5,7 @@
 
 #include <string>
 
-class FPS : Debug {
+class FPS : public Debug {
 public:
     FPS();
 
