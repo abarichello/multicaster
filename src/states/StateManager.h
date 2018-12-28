@@ -3,16 +3,12 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include <functional>
-#include <unordered_map>
+#include <map>
 
 #include "State.h"
+#include "StateIDs.h"
 
-enum class StateType {
-    MainMenu,
-    Game,
-};
-
-using StateFactory = std::unordered_map<StateType, std::function<State::Ptr()>>;
+using StateFactory = std::map<StateType, std::function<State::Ptr()>>;
 
 class StateManager : private sf::NonCopyable {
 public:
@@ -25,29 +21,35 @@ public:
     explicit StateManager(State::SharedContext sharedContext);
     ~StateManager();
 
-    void update(float delta);
     void input(const sf::Event& event);
+    void update(float delta);
     void draw();
 
     void push(StateType type);
     void pop();
     void clear();
-    bool isEmpty();
-
+    bool isEmpty() const;
     void applyPendingChanges();
+
+    template <typename T>
+    void registerState(StateType type);
 
 private:
     struct PendingChange {
+        PendingChange(Action action, StateType type = StateType::None);
         Action action;
         StateType type;
     };
 
-    template <typename T>
-    void registerState(const StateType type);
     State::Ptr createState(const StateType type);
 
     std::vector<State::Ptr> states;
-    std::vector<PendingChange> pending;
-    State::SharedContext* context;
+    std::vector<PendingChange> pendingList;
+    State::SharedContext context;
     StateFactory stateFactory;
 };
+
+template <typename T>
+void StateManager::registerState(StateType type) {
+    stateFactory[type] = [this]() { return State::Ptr(new T(*this, context)); };
+}

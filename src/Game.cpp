@@ -1,12 +1,17 @@
 #include "Game.h"
 #include "GLOBAL.h"
+#include "states/MainMenuState.h"
+#include "states/State.h"
 
 Game::Game()
-    : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen), stateManager(context), player1() {
+    : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen),
+      stateManager(State::SharedContext(window, textures, fonts)),
+      player1() {
     window.setFramerateLimit(Global::MAX_FRAMERATE);
     window.setVerticalSyncEnabled(true);
 
-    context.window = &window;
+    stateManager.registerState<MainMenuState>(StateType::MainMenu);
+    stateManager.push(StateType::MainMenu);
 }
 
 void Game::run() {
@@ -17,27 +22,24 @@ void Game::run() {
         event();
         process(delta);
         draw();
+
+        if (stateManager.isEmpty()) {
+            window.close();
+        }
     }
 }
 
 void Game::event() {
     sf::Event event;
     while (window.pollEvent(event)) {
-        switch (event.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape) {
-                    window.close();
-                }
-                break;
+        stateManager.input(event);
+        if (event.type == sf::Event::Closed) {
+            window.close();
         }
     }
 }
 
 void Game::process(float delta) {
-    player1.process(delta);
     stateManager.update(delta);
 }
 

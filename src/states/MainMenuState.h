@@ -2,9 +2,16 @@
 
 #include "../ResourceHolder.h"
 #include "State.h"
+#include "StateManager.h"
 
-class MainMenuIntro : public State {
+class MainMenuState : public State {
 public:
+    MainMenuState(StateManager& stateManager, SharedContext context);
+
+    virtual bool input(const sf::Event& event);
+    virtual bool update(float delta);
+    virtual void draw();
+
 private:
     FontHolder fonts;
     sf::Text menuText;

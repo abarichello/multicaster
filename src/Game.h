@@ -18,7 +18,8 @@ private:
     void draw();
 
     sf::RenderWindow window;
-    Player player1;
     StateManager stateManager;
-    State::SharedContext context;
+    TextureHolder textures;
+    FontHolder fonts;
+    Player player1;
 };
