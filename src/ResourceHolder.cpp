@@ -1,7 +1,7 @@
 #include "ResourceHolder.h"
 
 template <typename Resource>
-void ResourceHolder<Resource>::load(Resources::ID, const std::string& path) {
+void ResourceHolder<Resource>::load(Resources::ID id, const std::string& path) {
     std::unique_ptr<Resource> resource(new Resource());
     if (!resource->loadFromFile(path)) {
         std::cerr << "Error loading resource " << id << " from path: " << path;

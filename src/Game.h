@@ -4,6 +4,7 @@
 
 #include "FPS.h"
 #include "Player.h"
+#include "states/StateManager.h"
 
 class Game {
 public:
@@ -15,7 +16,10 @@ private:
     void event();
     void process(float delta);
     void draw();
+    void lateUpdate();
 
     sf::RenderWindow window;
     Player player1;
+    StateManager stateManager;
+    State::SharedContext context;
 };

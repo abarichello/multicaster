@@ -10,7 +10,7 @@ namespace Resources {
     enum ID {
         DEBUG_FONT = 0,
     };
-};
+};  // namespace Resources
 
 template <typename Resource>
 class ResourceHolder {
@@ -21,3 +21,6 @@ public:
 private:
     std::map<int, std::unique_ptr<Resource>> resourceMap;
 };
+
+typedef ResourceHolder<sf::Texture> TextureHolder;
+typedef ResourceHolder<sf::Font> FontHolder;
