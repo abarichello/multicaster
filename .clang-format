@@ -19,7 +19,7 @@ CommentPragmas: ''
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
-DerivePointerAlignment: false
+DerivePointerAlignment: true
 DisableFormat: false
 ExperimentalAutoDetectBinPacking: false
 IndentCaseLabels: true

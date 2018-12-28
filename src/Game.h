@@ -16,7 +16,6 @@ private:
     void event();
     void process(float delta);
     void draw();
-    void lateUpdate();
 
     sf::RenderWindow window;
     Player player1;

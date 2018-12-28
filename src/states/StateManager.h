@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <cassert>
 #include <functional>
 #include <unordered_map>
 
@@ -11,32 +12,42 @@ enum class StateType {
     Game,
 };
 
-using StateFactory = std::unordered_map<StateType, std::function<State*(void)>>;
+using StateFactory = std::unordered_map<StateType, std::function<State::Ptr()>>;
 
 class StateManager : private sf::NonCopyable {
 public:
+    enum Action {
+        Push,
+        Pop,
+        Clear,
+    };
+
     explicit StateManager(State::SharedContext sharedContext);
     ~StateManager();
 
     void update(float delta);
+    void input(const sf::Event& event);
     void draw();
 
-    bool hasState(const StateType type);
-    void switchTo(const StateType type);
-    void remove(const StateType type);
-
-    void queueFree();
+    void push(StateType type);
+    void pop();
+    void clear();
     bool isEmpty();
 
+    void applyPendingChanges();
+
 private:
-    void createState(const StateType type);
-    void removeState(const StateType type);
+    struct PendingChange {
+        Action action;
+        StateType type;
+    };
 
     template <typename T>
     void registerState(const StateType type);
+    State::Ptr createState(const StateType type);
 
+    std::vector<State::Ptr> states;
+    std::vector<PendingChange> pending;
     State::SharedContext* context;
-    std::vector<std::pair<StateType, State*>> states;
-    std::vector<StateType> removeQueue;
     StateFactory stateFactory;
 };

@@ -7,56 +7,28 @@ StateManager::StateManager(State::SharedContext context) : context(&context) {
 
 StateManager::~StateManager() {
     for (auto& itr : states) {
-        itr.second->destroy();
-        delete itr.second;
+        itr->destroy();
     }
 }
 
 void StateManager::update(float delta) {
-    if (states.empty()) {
-        return;
+    for (auto itr = states.begin(); itr != states.end(); ++itr) {
+        if (!(*itr)->update(delta)) {
+            return;
+        }
     }
-
-    for (auto itr = states.end(); itr != states.begin(); --itr) {
-        itr->second->update(delta);
+}
+void StateManager::input(const sf::Event& event) {
+    for (auto itr = states.begin(); itr != states.end(); ++itr) {
+        if (!(*itr)->input(event)) {
+            return;
+        }
     }
 }
 
 void StateManager::draw() {
-    if (states.empty()) {
-        return;
-    }
-
     for (auto itr = states.end(); itr != states.begin(); --itr) {
-        itr->second->draw();
-    }
-}
-
-void StateManager::switchTo(const StateType type) {
-}
-
-bool StateManager::hasState(const StateType type) {
-    for (auto itr = states.end(); itr != states.begin(); --itr) {
-        if (itr->first == type) {
-            // Check if it isn't marked for removal
-            auto removed = std::find(removeQueue.begin(), removeQueue.end(), type);
-            if (removed == removeQueue.end()) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-
-void StateManager::remove(const StateType type) {
-    removeQueue.push_back(type);
-}
-
-// Empty the remove queue at the end of a frame to prevent invalid operations
-void StateManager::queueFree() {
-    while (removeQueue.begin() != removeQueue.end()) {
-        removeState(*removeQueue.begin());
-        removeQueue.erase(removeQueue.begin());
+        (*itr)->draw();
     }
 }
 
@@ -64,22 +36,28 @@ bool StateManager::isEmpty() {
     return states.empty();
 }
 
-void StateManager::createState(const StateType type) {
-    auto newState = stateFactory.find(type);
-    if (newState == stateFactory.end()) {
-        return;
+void StateManager::applyPendingChanges() {
+    for (PendingChange change : pending) {
+        switch (change.action) {
+            case Push:
+                states.push_back(createState(change.type));
+                break;
+            case Pop:
+                states.pop_back();
+            case Clear:
+                states.clear();
+                break;
+        }
     }
-    State* state = newState->second();
-    states.emplace_back(type, state);
-    state->ready();
-}
-
-void StateManager::removeState(const StateType type) {
 }
 
 template <typename T>
 void StateManager::registerState(const StateType type) {
-    stateFactory[type] = this()->State * {
-        return new T(this);
-    }
+    stateFactory[type] = [this]() { return State::Ptr(new T(*this, context)); };
+}
+
+State::Ptr StateManager::createState(const StateType type) {
+    auto found = stateFactory.find(type);
+    assert(found != stateFactory.end());
+    return found->second();
 }

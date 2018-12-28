@@ -7,7 +7,6 @@ Game::Game()
     window.setVerticalSyncEnabled(true);
 
     context.window = &window;
-    stateManager.switchTo(StateType::MainMenu);
 }
 
 void Game::run() {
@@ -46,8 +45,4 @@ void Game::draw() {
     window.clear(sf::Color::Black);
     stateManager.draw();
     window.display();
-}
-
-void Game::lateUpdate() {
-    stateManager.queueFree();
 }
