@@ -6,7 +6,7 @@
 #include <map>
 
 #include "State.h"
-#include "StateIDs.h"
+#include "StateType.h"
 
 using StateFactory = std::map<StateType, std::function<State::Ptr()>>;
 

@@ -4,6 +4,7 @@
 
 #include "FPS.h"
 #include "Player.h"
+#include "ResourceHolder.h"
 #include "states/StateManager.h"
 
 class Game {
@@ -16,6 +17,8 @@ private:
     void event();
     void process(float delta);
     void draw();
+
+    void loadResources();
 
     sf::RenderWindow window;
     StateManager stateManager;

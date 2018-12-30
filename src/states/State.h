@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "../ResourceHolder.h"
-#include "StateIDs.h"
+#include "StateType.h"
 
 class StateManager;
 

@@ -1,7 +1,6 @@
 #include "FPS.h"
 
-FPS::FPS() {
-    Debug();
+FPS::FPS() : Debug() {
 }
 
 void FPS::process(float delta) {

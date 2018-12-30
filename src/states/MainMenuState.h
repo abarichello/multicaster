@@ -14,5 +14,6 @@ public:
 
 private:
     FontHolder fonts;
+    sf::Font fontss;
     sf::Text menuText;
 };

@@ -10,6 +10,8 @@ Game::Game()
     window.setFramerateLimit(Global::MAX_FRAMERATE);
     window.setVerticalSyncEnabled(true);
 
+    loadResources();
+
     stateManager.registerState<MainMenuState>(StateType::MainMenu);
     stateManager.push(StateType::MainMenu);
 }
@@ -47,4 +49,9 @@ void Game::draw() {
     window.clear(sf::Color::Black);
     stateManager.draw();
     window.display();
+}
+
+void Game::loadResources() {
+    fonts.load(Resources::DEBUG_FONT, Global::DEBUG_FONT_PATH);
+    fonts.load(Resources::MENU_FONT, Global::MENU_FONT_PATH);
 }

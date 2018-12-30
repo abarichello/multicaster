@@ -1,8 +1,13 @@
 #include "MainMenuState.h"
+#include "../GLOBAL.h"
 #include "StateManager.h"
 
 MainMenuState::MainMenuState(StateManager& stateManager, SharedContext context)
     : State(stateManager, context) {
+    menuText.setFont(context.fonts->get(Resources::MENU_FONT));
+    menuText.setString("MAIN MENU");
+    menuText.setCharacterSize(Global::resolution.width / 30);
+    menuText.setPosition(100.0f, 100.0f);
 }
 
 bool MainMenuState::input(const sf::Event& event) {
@@ -25,4 +30,6 @@ bool MainMenuState::update(float delta) {
 }
 
 void MainMenuState::draw() {
+    sf::RenderWindow& window = *context.window;
+    window.draw(menuText);
 }
