@@ -26,8 +26,8 @@ def build_windows():
         SOURCES,
         CXXFLAGS = WIN_FLAGS,
         LIBS=WIN_LIBS,
-        CPPPATH = "./SFML-2.5.1/include",
-        LIBPATH = "./SFML-2.5.1/lib",
+        CPPPATH = "./include",
+        LIBPATH = "./lib",
     )
 
 if platform.startswith("win"):

@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GLOBAL.h"
-#include "Game.h"
+#include "game/Game.h"
 
 int main() {
     Game game;

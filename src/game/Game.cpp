@@ -1,7 +1,7 @@
 #include "Game.h"
-#include "GLOBAL.h"
-#include "states/MainMenuState.h"
-#include "states/State.h"
+#include "../GLOBAL.h"
+#include "../states/MainMenuState.h"
+#include "../states/State.h"
 
 Game::Game()
     : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen),

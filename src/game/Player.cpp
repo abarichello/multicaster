@@ -1,7 +1,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "GLOBAL.h"
+#include "../GLOBAL.h"
 #include "Player.h"
 
 Player::Player()

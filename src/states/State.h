@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../ResourceHolder.h"
+#include "../util/ResourceHolder.h"
 #include "StateType.h"
 
 class StateManager;

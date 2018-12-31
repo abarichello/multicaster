@@ -1,5 +1,5 @@
 #include "Debug.h"
-#include "GLOBAL.h"
+#include "../GLOBAL.h"
 
 Debug::Debug(sf::Vector2f textPosition) {
     debugFont.loadFromFile(Global::DEBUG_FONT_PATH);

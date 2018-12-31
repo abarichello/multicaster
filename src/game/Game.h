@@ -1,11 +1,11 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
-#include "FPS.h"
+#include "../gui/FPS.h"
+#include "../states/StateManager.h"
+#include "../util/ResourceHolder.h"
 #include "Player.h"
-#include "ResourceHolder.h"
-#include "states/StateManager.h"
 
 class Game {
 public:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ResourceHolder.h"
+#include "../util/ResourceHolder.h"
 #include "State.h"
 #include "StateManager.h"
 

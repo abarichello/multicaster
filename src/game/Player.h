@@ -2,8 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Debug.h"
-#include "FPS.h"
+#include "../gui/Debug.h"
+#include "../gui/FPS.h"
 
 class Player {
 public:
