@@ -11,7 +11,7 @@ StateManager::~StateManager() {
 void StateManager::input(const sf::Event& event) {
     for (auto itr = states.rbegin(); itr != states.rend(); ++itr) {
         if (!(*itr)->input(event)) {
-            return;
+            break;
         }
     }
 }

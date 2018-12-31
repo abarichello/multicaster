@@ -10,7 +10,7 @@ class FPS : public Debug {
 public:
     FPS();
 
-    void process(float delta);
+    void update(float delta);
 
 private:
     int frameCount = 0;

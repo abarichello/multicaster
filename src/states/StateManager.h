@@ -51,5 +51,8 @@ private:
 
 template <typename T>
 void StateManager::registerState(StateType type) {
-    stateFactory[type] = [this]() { return State::Ptr(new T(*this, context)); };
+    stateFactory[type] = [this]() {
+        auto ptr = State::Ptr(new T(*this, context));
+        return ptr;
+    };
 }

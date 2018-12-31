@@ -1,7 +1,6 @@
 #include <cmath>
 #include <iostream>
 
-#include "../GLOBAL.h"
 #include "Player.h"
 
 Player::Player()
@@ -13,9 +12,8 @@ Player::Player()
       debug(sf::Vector2f(0.0f, 30.0f)) {
 }
 
-Player::Player(sf::Vector2f startPosition) {
-    Player();
-    position = startPosition;
+Player::Player(sf::Vector2f startPosition) : Player() {
+    this->position = startPosition;
 }
 
 void Player::input() {
@@ -39,11 +37,11 @@ void Player::input() {
     }
 }
 
-void Player::process(float delta) {
+void Player::update(float delta) {
     this->delta = delta;
     input();
     raycast();
-    fps.process(delta);
+    fps.update(delta);
 }
 
 void Player::raycast() {

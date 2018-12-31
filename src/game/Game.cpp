@@ -1,18 +1,18 @@
 #include "Game.h"
 #include "../GLOBAL.h"
+#include "../states/GameState.h"
 #include "../states/MainMenuState.h"
 #include "../states/State.h"
 
 Game::Game()
     : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen),
-      stateManager(State::SharedContext(window, textures, fonts)),
-      player1() {
+      stateManager(State::SharedContext(window, textures, fonts)) {
     window.setFramerateLimit(Global::MAX_FRAMERATE);
     window.setVerticalSyncEnabled(true);
 
     loadResources();
+    registerStates();
 
-    stateManager.registerState<MainMenuState>(StateType::MainMenu);
     stateManager.push(StateType::MainMenu);
 }
 
@@ -22,7 +22,7 @@ void Game::run() {
     while (window.isOpen()) {
         float delta = clock.restart().asSeconds();
         event();
-        process(delta);
+        update(delta);
         draw();
 
         if (stateManager.isEmpty()) {
@@ -41,7 +41,7 @@ void Game::event() {
     }
 }
 
-void Game::process(float delta) {
+void Game::update(float delta) {
     stateManager.update(delta);
 }
 
@@ -54,4 +54,9 @@ void Game::draw() {
 void Game::loadResources() {
     fonts.load(Resources::DEBUG_FONT, Global::DEBUG_FONT_PATH);
     fonts.load(Resources::MENU_FONT, Global::MENU_FONT_PATH);
+}
+
+void Game::registerStates() {
+    stateManager.registerState<MainMenuState>(StateType::MainMenu);
+    stateManager.registerState<GameState>(StateType::Game);
 }

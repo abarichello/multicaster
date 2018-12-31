@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../GLOBAL.h"
 #include "../gui/Debug.h"
 #include "../gui/FPS.h"
 
@@ -11,7 +12,7 @@ public:
     Player(sf::Vector2f startPosition);
 
     void input();
-    void process(float delta);
+    void update(float delta);
     void raycast();
     void draw(sf::RenderWindow& window);
 
@@ -24,14 +25,14 @@ private:
     void turnRight();
     sf::Vector2f rotateVector(sf::Vector2f input, float value);
 
+    sf::VideoMode screenRes = Global::resolution;
     sf::VertexArray columns;
-    sf::VideoMode screenRes = sf::VideoMode().getDesktopMode();
     sf::Vector2f direction;
     sf::Vector2f plane;
     sf::VertexArray lines;
 
     float movementSpeed = 4.0f;
-    float turnSpeed = 2.0f;
+    float turnSpeed = 1.7f;
     float delta = 0.0f;
 
     int map[24][24] = {

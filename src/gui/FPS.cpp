@@ -3,7 +3,7 @@
 FPS::FPS() : Debug() {
 }
 
-void FPS::process(float delta) {
+void FPS::update(float delta) {
     frameCount++;
     this->delta += delta;
     if (this->delta > 1.0 / updateRate) {

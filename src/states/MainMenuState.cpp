@@ -17,6 +17,7 @@ bool MainMenuState::input(const sf::Event& event) {
 
     auto keyPressed = event.key.code;
     if (keyPressed == sf::Keyboard::Space || keyPressed == sf::Keyboard::Enter) {
+        requestPop();
         requestPush(StateType::Game);
     }
     if (keyPressed == sf::Keyboard::Escape) {

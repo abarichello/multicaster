@@ -5,7 +5,6 @@
 #include "../gui/FPS.h"
 #include "../states/StateManager.h"
 #include "../util/ResourceHolder.h"
-#include "Player.h"
 
 class Game {
 public:
@@ -15,14 +14,14 @@ public:
 
 private:
     void event();
-    void process(float delta);
+    void update(float delta);
     void draw();
 
     void loadResources();
+    void registerStates();
 
     sf::RenderWindow window;
     StateManager stateManager;
     TextureHolder textures;
     FontHolder fonts;
-    Player player1;
 };
