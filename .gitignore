@@ -1,5 +1,6 @@
 # Generated files
 caster
+bin/**
 
 # VSCode
 *.code-workspace

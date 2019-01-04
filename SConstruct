@@ -6,12 +6,10 @@ env = Environment(ENV = {"PATH": os.environ["PATH"]})
 LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system"]
 WIN_LIBS = ["sfml-graphics", "sfml-window", "sfml-system"]
 WIN_FLAGS = "/O2 /std:c++17 /W2 /EHsc"
-FILENAME = "caster"
+FILENAME = "bin/caster"
 SOURCES = Glob("src/*.cpp")
 SOURCES.extend(Glob("src/**/*.cpp"))
-
-platform = sys.platform
-print("Building for " + platform)
+BINARIES = "./bin"
 
 def build_linux():
     Program(
@@ -29,6 +27,13 @@ def build_windows():
         CPPPATH = "./include",
         LIBPATH = "./lib",
     )
+
+platform = sys.platform
+print("Building for " + platform)
+try:
+    os.mkdir(BINARIES)
+except Exception:
+    pass
 
 if platform.startswith("win"):
     build_windows()
