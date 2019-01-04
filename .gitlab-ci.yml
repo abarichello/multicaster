@@ -21,10 +21,9 @@ linux-zip:
     - mkdir bin/lib
     - cp /usr/lib/x86_64-linux-gnu/libsfml-*.so.* bin/lib
     - mv bin $GAME_NAME
-    - zip -r $GAME_NAME.zip $GAME_NAME
   artifacts:
-    name: $EXPORT_NAME-$CI_JOB_NAME
+    name: $GAME_NAME-linux
     paths:
-      - $GAME_NAME.zip
+      - $GAME_NAME
   dependencies:
     - linux-build
