@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     clang \
     g++ \
-    gcc \
     libsfml-dev \
-    libtool \
-    scons
+    scons \
+    zip

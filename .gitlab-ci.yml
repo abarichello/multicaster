@@ -1,19 +1,30 @@
 image: barichello/sfml:latest
 
+variables:
+  GAME_NAME: multicaster
+
 stages:
-  - test
   - build
+  - package
 
-# test_project:
-#   stage: test
-#   script:
-#  -
-
-build-linux:
+linux-build:
   stage: build
   script:
     - scons
   artifacts:
+    paths:
+      - bin
+
+linux-zip:
+  stage: package
+  script:
+    - mkdir bin/lib
+    - cp /usr/lib/x86_64-linux-gnu/libsfml-*.so.* bin/lib
+    - mv bin $GAME_NAME
+    - zip -r $GAME_NAME.zip $GAME_NAME
+  artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
-      - caster**
+      - $GAME_NAME.zip
+  dependencies:
+    - linux-build
