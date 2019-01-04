@@ -15,7 +15,7 @@ linux-build:
     paths:
       - bin
 
-linux-zip:
+linux:
   stage: package
   script:
     - mkdir bin/lib
