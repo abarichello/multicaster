@@ -29,4 +29,5 @@ bool KeyMap::isKeyPressed(KeyMap::ID id) {
 
 // Checks if the current directory already has a config file
 bool KeyMap::hasConfigFile() {
+    return true;
 }

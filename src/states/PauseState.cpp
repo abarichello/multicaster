@@ -5,7 +5,7 @@
 PauseState::PauseState(StateManager& stateManager, SharedContext context)
     : State(stateManager, context), mask(sf::Vector2f(context.window->getSize())) {
     mask.setFillColor(sf::Color(0, 0, 0, 154));
-    pauseFont.loadFromFile(Path::MENU_FONT_PATH);
+    pauseFont.loadFromFile(Path::MENU_FONT);
 
     pauseText.setFont(pauseFont);
     pauseText.setString("PAUSED");

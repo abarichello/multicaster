@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "../GLOBAL.h"
+#include "../Path.h"
 #include "../states/GameState.h"
 #include "../states/MainMenuState.h"
 #include "../states/State.h"
@@ -52,8 +52,8 @@ void Game::draw() {
 }
 
 void Game::loadResources() {
-    fonts.load(Resources::DEBUG_FONT, Global::DEBUG_FONT_PATH);
-    fonts.load(Resources::MENU_FONT, Global::MENU_FONT_PATH);
+    fonts.load(Resources::DEBUG_FONT, Path::DEBUG_FONT);
+    fonts.load(Resources::MENU_FONT, Path::MENU_FONT);
 }
 
 void Game::registerStates() {
