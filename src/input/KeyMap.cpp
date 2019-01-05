@@ -7,13 +7,10 @@ KeyMap::KeyMap() {
     loadBindingsFromFile();
 }
 
-KeyMap::KeyMap(std::string bindingsPath) {
-    // loadBindingsFromFile(bindingsPath);
-}
-
 // Load the keys.cfg file that's placed with the executable into the keymap
-void KeyMap::loadBindingsFromFile() {  // std::string path) {
+void KeyMap::loadBindingsFromFile() {
     // TODO: actualy load settings from file
+    keys.clear();
     keys[KeyMap::FORWARD] = sf::Keyboard::W;
     keys[KeyMap::BACKWARD] = sf::Keyboard::S;
     keys[KeyMap::TURNLEFT] = sf::Keyboard::A;

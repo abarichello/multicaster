@@ -7,11 +7,10 @@
 class KeyMap {
 public:
     KeyMap();
-    KeyMap(std::string bindingsPath);
 
     enum ID { FORWARD = 0, BACKWARD, TURNLEFT, TURNRIGHT };
 
-    void loadBindingsFromFile();  // std::string path);
+    void loadBindingsFromFile();
     void generateDefaultConfigFile();
     bool isKeyPressed(KeyMap::ID id);
 
