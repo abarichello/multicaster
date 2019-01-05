@@ -5,7 +5,6 @@ GameState::GameState(StateManager& stateManager, SharedContext context) : State(
 }
 
 bool GameState::input(const sf::Event& event) {
-    player1.input();
     if (event.key.code == sf::Keyboard::Escape) {
         context.window->close();
     }

@@ -1,5 +1,4 @@
 #include <cmath>
-#include <iostream>
 
 #include "Player.h"
 
@@ -9,7 +8,8 @@ Player::Player()
       plane(-0.65f, 0.0f),
       lines(sf::Lines, screenRes.width),
       fps(),
-      debug(sf::Vector2f(0.0f, 30.0f)) {
+      debug(sf::Vector2f(0.0f, 30.0f)),
+      keymap() {
 }
 
 Player::Player(sf::Vector2f startPosition) : Player() {
@@ -17,16 +17,16 @@ Player::Player(sf::Vector2f startPosition) : Player() {
 }
 
 void Player::input() {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+    if (keymap.isKeyPressed(KeyMap::FORWARD)) {
         moveForward();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+    if (keymap.isKeyPressed(KeyMap::BACKWARD)) {
         moveBackward();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+    if (keymap.isKeyPressed(KeyMap::TURNLEFT)) {
         turnLeft();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+    if (keymap.isKeyPressed(KeyMap::TURNRIGHT)) {
         turnRight();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Backspace)) {

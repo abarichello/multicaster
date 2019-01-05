@@ -5,6 +5,7 @@
 #include "../GLOBAL.h"
 #include "../gui/Debug.h"
 #include "../gui/FPS.h"
+#include "../input/KeyMap.h"
 
 class Player {
 public:
@@ -25,6 +26,7 @@ private:
     void turnRight();
     sf::Vector2f rotateVector(sf::Vector2f input, float value);
 
+    KeyMap keymap;
     sf::VideoMode screenRes = Global::resolution;
     sf::VertexArray columns;
     sf::Vector2f direction;
