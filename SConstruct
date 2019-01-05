@@ -1,5 +1,6 @@
 import os
 import sys
+from shutil import copytree, rmtree
 
 env = Environment()
 
@@ -53,9 +54,11 @@ def build_windows():
 def post_build():
     # Make the resource folder acessible by the generated binary
     try:
-        os.system("cp -r ./resources ./bin")
-    except Exception:
-        pass
+        rmtree("bin/resources")
+    except OSError as e:
+        print(e)
+    finally:
+        copytree("resources", "bin/resources")
 
 pre_build()
 post_build()
