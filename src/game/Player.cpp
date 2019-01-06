@@ -1,5 +1,7 @@
 #include <cmath>
 
+#include "../Path.h"
+#include "../util/Math.h"
 #include "Player.h"
 
 Player::Player()
@@ -41,6 +43,12 @@ void Player::update(float delta) {
     this->delta = delta;
     input();
     raycast();
+
+    if (debugMode) {
+        std::string debugText =
+            "PositionX: " + std::to_string(position.x) + " PositionY: " + std::to_string(position.y);
+        debug.setText(debugText);
+    }
     fps.update(delta);
 }
 
@@ -114,17 +122,11 @@ void Player::raycast() {
         }
 
         // Shadow horizontal walls
-        sf::Color color = sf::Color::Red;
+        sf::Color color = sf::Color::White;
         if (horizontal) {
             color.r /= 2;
             color.g /= 2;
             color.b /= 2;
-        }
-
-        if (debugMode) {
-            std::string debugText =
-                "PositionX: " + std::to_string(position.x) + " PositionY: " + std::to_string(position.y);
-            debug.setText(debugText);
         }
 
         // Append columns to VertexArray
@@ -135,6 +137,7 @@ void Player::raycast() {
 
 void Player::draw(sf::RenderWindow& window) {
     window.draw(lines);
+
     if (debugMode) {
         fps.draw(window);
         debug.draw(window);
@@ -174,18 +177,11 @@ void Player::moveBackward() {
 }
 
 void Player::turnLeft() {
-    direction = rotateVector(direction, -1.0f * turnSpeed * delta);
-    plane = rotateVector(plane, turnSpeed * delta * -1.0f);
+    direction = Math::rotateVector(direction, -1.0f * turnSpeed * delta);
+    plane = Math::rotateVector(plane, turnSpeed * delta * -1.0f);
 }
 
 void Player::turnRight() {
-    direction = rotateVector(direction, 1.0f * turnSpeed * delta);
-    plane = rotateVector(plane, turnSpeed * delta);
-}
-
-// https://en.wikipedia.org/wiki/Rotation_matrix
-sf::Vector2f Player::rotateVector(sf::Vector2f input, float value) {
-    float x = (input.x * std::cos(value) - input.y * std::sin(value));
-    float y = (input.x * std::sin(value) + input.y * std::cos(value));
-    return sf::Vector2f(x, y);
+    direction = Math::rotateVector(direction, 1.0f * turnSpeed * delta);
+    plane = Math::rotateVector(plane, turnSpeed * delta);
 }

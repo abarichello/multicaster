@@ -24,7 +24,6 @@ private:
     void moveBackward();
     void turnLeft();
     void turnRight();
-    sf::Vector2f rotateVector(sf::Vector2f input, float value);
 
     KeyMap keymap;
     sf::VideoMode screenRes = Global::resolution;

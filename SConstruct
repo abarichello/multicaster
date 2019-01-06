@@ -10,9 +10,9 @@ WIN_LIBS = ["sfml-graphics", "sfml-window", "sfml-system"]
 
 # Compiler/Linker flags
 LINUX_FLAGS = "-Wl,-rpath,.'$ORIGIN'/lib"
-WIN_FLAGS = "/O2 /std:c++17 /W2 /EHsc"
+WIN_FLAGS = "/O2 /FS /ZI /std:c++17 /W2 /EHsc"
 
-FILENAME = "bin/caster"
+FILENAME = "bin/multicaster"
 SOURCES = Glob("src/*.cpp")
 SOURCES.extend(Glob("src/**/*.cpp"))
 BINARIES = "./bin"
