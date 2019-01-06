@@ -2,6 +2,16 @@
 caster
 bin/**
 
+# Visual Studio
+.vs**/
+Debug/
+Release/
+*.sln
+*.vcxproj**
+*.idb
+*.pdb
+*.json
+
 # VSCode
 *.code-workspace
 
