@@ -10,7 +10,7 @@ Player::Player()
       plane(-0.65f, 0.0f),
       lines(sf::Lines, screenRes.width),
       fps(),
-      debug(sf::Vector2f(0.0f, 30.0f)),
+      debug(sf::Vector2f(0.0f, 50.0f)),
       keymap() {
 }
 
@@ -98,7 +98,7 @@ void Player::raycast() {
                 horizontal = false;
             }
 
-            if (map[(int)worldPos.x][(int)worldPos.y] > 0) {
+            if (map.getTile(worldPos) > 0) {
                 hit = true;
             }
         }
@@ -148,14 +148,14 @@ void Player::moveForward() {
     float deltaMovement = direction.x * movementSpeed * delta;
     int x = int(position.x + deltaMovement);
     int y = int(position.y);
-    if (map[x][y] == 0) {
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
         position.x += deltaMovement;
     }
 
     deltaMovement = direction.y * movementSpeed * delta;
     x = int(position.x);
     y = int(position.y + deltaMovement);
-    if (map[x][y] == 0) {
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
         position.y += deltaMovement;
     }
 }
@@ -164,14 +164,14 @@ void Player::moveBackward() {
     float deltaMovement = direction.x * movementSpeed * delta;
     int x = int(position.x - deltaMovement);
     int y = int(position.y);
-    if (map[x][y] == 0) {
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
         position.x -= deltaMovement;
     }
 
     deltaMovement = direction.y * movementSpeed * delta;
     x = int(position.x);
     y = int(position.y - deltaMovement);
-    if (map[x][y] == 0) {
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
         position.y -= deltaMovement;
     }
 }
