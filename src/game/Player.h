@@ -23,6 +23,8 @@ public:
 private:
     void moveForward();
     void moveBackward();
+    void moveLeft();
+    void moveRight();
     void turnLeft();
     void turnRight();
 

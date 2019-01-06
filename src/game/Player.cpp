@@ -19,11 +19,18 @@ Player::Player(sf::Vector2f startPosition) : Player() {
 }
 
 void Player::input() {
+    // MOVEMENT
     if (keymap.isKeyPressed(KeyMap::FORWARD)) {
         moveForward();
     }
     if (keymap.isKeyPressed(KeyMap::BACKWARD)) {
         moveBackward();
+    }
+    if (keymap.isKeyPressed(KeyMap::LEFT)) {
+        moveLeft();
+    }
+    if (keymap.isKeyPressed(KeyMap::RIGHT)) {
+        moveRight();
     }
     if (keymap.isKeyPressed(KeyMap::TURNLEFT)) {
         turnLeft();
@@ -31,6 +38,8 @@ void Player::input() {
     if (keymap.isKeyPressed(KeyMap::TURNRIGHT)) {
         turnRight();
     }
+
+    // ETC
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Backspace)) {
         position = sf::Vector2f(2.0f, 2.0f);
     }
@@ -173,6 +182,38 @@ void Player::moveBackward() {
     y = int(position.y - deltaMovement);
     if (map.getTile(sf::Vector2i(x, y)) == 0) {
         position.y -= deltaMovement;
+    }
+}
+
+void Player::moveLeft() {
+    float deltaMovement = plane.x * movementSpeed * delta;
+    int x = int(position.x - deltaMovement);
+    int y = int(position.y);
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
+        position.x -= deltaMovement;
+    }
+
+    deltaMovement = plane.y * movementSpeed * delta;
+    x = int(position.x);
+    y = int(position.y - deltaMovement);
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
+        position.y -= deltaMovement;
+    }
+}
+
+void Player::moveRight() {
+    float deltaMovement = plane.x * movementSpeed * delta;
+    int x = int(position.x + deltaMovement);
+    int y = int(position.y);
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
+        position.x += deltaMovement;
+    }
+
+    deltaMovement = plane.y * movementSpeed * delta;
+    x = int(position.x);
+    y = int(position.y + deltaMovement);
+    if (map.getTile(sf::Vector2i(x, y)) == 0) {
+        position.y += deltaMovement;
     }
 }
 

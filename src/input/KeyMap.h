@@ -8,7 +8,7 @@ class KeyMap {
 public:
     KeyMap();
 
-    enum ID { FORWARD = 0, BACKWARD, TURNLEFT, TURNRIGHT };
+    enum ID { FORWARD = 0, BACKWARD, LEFT, RIGHT, TURNLEFT, TURNRIGHT };
 
     void loadBindingsFromFile();
     void generateDefaultConfigFile();

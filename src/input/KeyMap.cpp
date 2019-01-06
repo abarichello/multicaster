@@ -13,8 +13,10 @@ void KeyMap::loadBindingsFromFile() {
     keys.clear();
     keys[KeyMap::FORWARD] = sf::Keyboard::W;
     keys[KeyMap::BACKWARD] = sf::Keyboard::S;
-    keys[KeyMap::TURNLEFT] = sf::Keyboard::A;
-    keys[KeyMap::TURNRIGHT] = sf::Keyboard::D;
+    keys[KeyMap::LEFT] = sf::Keyboard::A;
+    keys[KeyMap::RIGHT] = sf::Keyboard::D;
+    keys[KeyMap::TURNLEFT] = sf::Keyboard::Left;
+    keys[KeyMap::TURNRIGHT] = sf::Keyboard::Right;
 }
 
 // Check for an existing config file, if it doe not exist generate a default one
