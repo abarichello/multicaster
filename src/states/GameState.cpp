@@ -1,5 +1,5 @@
 #include "GameState.h"
-#include "../GLOBAL.h"
+#include "GLOBAL.h"
 
 GameState::GameState(StateManager& stateManager, SharedContext context) : State(stateManager, context) {
 }

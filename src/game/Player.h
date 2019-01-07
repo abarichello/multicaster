@@ -2,11 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../GLOBAL.h"
-#include "../gui/Debug.h"
-#include "../gui/FPS.h"
-#include "../input/KeyMap.h"
+#include "GLOBAL.h"
 #include "Map.h"
+#include "gui/Debug.h"
+#include "gui/FPS.h"
+#include "input/KeyMap.h"
 
 class Player {
 public:

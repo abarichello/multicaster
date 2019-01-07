@@ -2,8 +2,8 @@
 
 #include <memory>
 
-#include "../util/ResourceHolder.h"
 #include "StateType.h"
+#include "util/ResourceHolder.h"
 
 class StateManager;
 

@@ -2,9 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "../gui/FPS.h"
-#include "../states/StateManager.h"
-#include "../util/ResourceHolder.h"
+#include "gui/FPS.h"
+#include "states/StateManager.h"
+#include "util/ResourceHolder.h"
 
 class Game {
 public:

@@ -9,8 +9,8 @@ LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system"]
 WIN_LIBS = ["sfml-graphics", "sfml-window", "sfml-system"]
 
 # Compiler/Linker flags
-LINUX_FLAGS = "-Wl,-rpath,.'$ORIGIN'/lib"
-WIN_FLAGS = "/O2 /FS /ZI /std:c++17 /W2 /EHsc"
+LINUX_FLAGS = "-Isrc/ -Wl,-rpath,.'$ORIGIN'/lib"
+WIN_FLAGS = "/Isrc/ /std:c++17 /O2 /FS /ZI /W2 /EHsc"
 
 FILENAME = "bin/multicaster"
 SOURCES = Glob("src/*.cpp")
@@ -37,7 +37,7 @@ def build_linux():
     Program(
         FILENAME,
         SOURCES,
-        LINKFLAGS = LINUX_FLAGS,
+        CXXFLAGS = LINUX_FLAGS,
         LIBS=LINUX_LIBS,
     )
 

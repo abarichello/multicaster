@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../game/Player.h"
 #include "State.h"
 #include "StateManager.h"
+#include "game/Player.h"
 
 class GameState : public State {
 public:

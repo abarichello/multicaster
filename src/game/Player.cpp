@@ -1,8 +1,8 @@
 #include <cmath>
 
-#include "../Path.h"
-#include "../util/Math.h"
+#include "Path.h"
 #include "Player.h"
+#include "util/Math.h"
 
 Player::Player()
     : position(2.0f, 2.0f),

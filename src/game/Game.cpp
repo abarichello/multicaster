@@ -1,8 +1,8 @@
 #include "Game.h"
-#include "../Path.h"
-#include "../states/GameState.h"
-#include "../states/MainMenuState.h"
-#include "../states/State.h"
+#include "Path.h"
+#include "states/GameState.h"
+#include "states/MainMenuState.h"
+#include "states/State.h"
 
 Game::Game()
     : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen),

@@ -1,10 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 #include "Debug.h"
-
-#include <string>
 
 class FPS : public Debug {
 public:

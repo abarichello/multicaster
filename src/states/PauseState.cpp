@@ -1,6 +1,6 @@
 #include "PauseState.h"
-#include "../GLOBAL.h"
-#include "../Path.h"
+#include "GLOBAL.h"
+#include "Path.h"
 
 PauseState::PauseState(StateManager& stateManager, SharedContext context)
     : State(stateManager, context), mask(sf::Vector2f(context.window->getSize())) {

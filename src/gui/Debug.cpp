@@ -1,5 +1,5 @@
 #include "Debug.h"
-#include "../Path.h"
+#include "Path.h"
 
 Debug::Debug(sf::Vector2f textPosition) {
     debugFont.loadFromFile(Path::DEBUG_FONT);

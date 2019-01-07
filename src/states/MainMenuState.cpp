@@ -1,5 +1,5 @@
 #include "MainMenuState.h"
-#include "../GLOBAL.h"
+#include "GLOBAL.h"
 #include "StateManager.h"
 
 MainMenuState::MainMenuState(StateManager& stateManager, SharedContext context)
