@@ -11,7 +11,8 @@ Player::Player()
       lines(sf::Lines, screenRes.width),
       fps(),
       debug(sf::Vector2f(0.0f, 50.0f)),
-      keymap() {
+      keymap(),
+      map() {
 }
 
 Player::Player(sf::Vector2f startPosition) : Player() {
@@ -146,6 +147,7 @@ void Player::raycast() {
 
 void Player::draw(sf::RenderWindow& window) {
     window.draw(lines);
+    map.drawMinimap(window);
 
     if (debugMode) {
         fps.draw(window);

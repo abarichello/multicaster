@@ -1,6 +1,7 @@
 # Generated files
 caster
 bin/**
+minimap.png
 
 # Visual Studio
 .vs**/
