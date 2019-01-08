@@ -9,19 +9,21 @@ LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system"]
 WIN_LIBS = ["sfml-graphics", "sfml-window", "sfml-system"]
 
 # Compiler/Linker flags
-LINUX_FLAGS = "-Isrc/ -Wl,-rpath,.'$ORIGIN'/lib"
-WIN_FLAGS = "/Isrc/ /std:c++17 /O2 /FS /ZI /W2 /EHsc"
+LINUX_CXXFLAGS = "-Isrc/"
+LINUX_LINKFLAGS = "-Wl,-rpath,.'$ORIGIN'/lib"
+WIN_CXXFLAGS = "/Isrc/ /std:c++17 /O2 /FS /ZI /W2 /EHsc"
 
+# Common data
 FILENAME = "bin/multicaster"
 SOURCES = Glob("src/*.cpp")
 SOURCES.extend(Glob("src/**/*.cpp"))
-BINARIES = "./bin"
+BIN_PATH = "./bin"
 
 def pre_build():
     platform = sys.platform
     print("Building for " + platform)
     try:
-        os.mkdir(BINARIES)
+        os.mkdir(BIN_PATH)
     except Exception:
         pass
 
@@ -37,8 +39,9 @@ def build_linux():
     Program(
         FILENAME,
         SOURCES,
-        CXXFLAGS = LINUX_FLAGS,
-        LIBS=LINUX_LIBS,
+        CXXFLAGS = LINUX_CXXFLAGS,
+        LINKFLAGS = LINUX_LINKFLAGS,
+        LIBS = LINUX_LIBS,
     )
 
 def build_windows():
@@ -46,7 +49,7 @@ def build_windows():
         FILENAME,
         SOURCES,
         CXXFLAGS = WIN_FLAGS,
-        LIBS=WIN_LIBS,
+        LIBS = WIN_LIBS,
         CPPPATH = "./include",
         LIBPATH = "./lib",
     )
