@@ -27,3 +27,5 @@ linux:
       - $GAME_NAME
   dependencies:
     - linux-build
+  except:
+    - wip@gitlab-org/gitlab-ce
