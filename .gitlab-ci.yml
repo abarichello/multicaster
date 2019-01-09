@@ -10,7 +10,18 @@ stages:
 linux-build:
   stage: build
   script:
-    - scons
+    - scons -j 4
+  artifacts:
+    paths:
+      - bin
+
+windows-build:
+  stage: build
+  script:
+    - mkdir include && mkdir lib
+    - cp -r /SFML-2.5.1/include .
+    - cp -r /SFML-2.5.1/lib .
+    - scons --cross=1 -j 4
   artifacts:
     paths:
       - bin
@@ -22,10 +33,25 @@ linux:
     - cp /usr/lib/x86_64-linux-gnu/libsfml-*.so.* bin/lib
     - mv bin $GAME_NAME
   artifacts:
-    name: $GAME_NAME-linux
+    name: $GAME_NAME-linux64
     paths:
       - $GAME_NAME
   dependencies:
     - linux-build
+  except:
+    - wip@gitlab-org/gitlab-ce
+
+windows:
+  stage: package
+  script:
+    - mkdir bin/lib
+    - cp /SFML-2.5.1/bin/*.dll bin/
+    - mv bin $GAME_NAME
+  artifacts:
+    name: $GAME_NAME-windows64
+    paths:
+      - $GAME_NAME
+  dependencies:
+    - windows-build
   except:
     - wip@gitlab-org/gitlab-ce

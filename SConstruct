@@ -8,10 +8,10 @@ AddOption("--cross", help="Cross compile to Windows", metavar="0")
 env = DefaultEnvironment(CROSS = GetOption("cross"))
 
 # Determine compiler
-COMPILER = env["CC"]
-if env["CROSS"] == "1":
-    COMPILER = MINGW
-print(f"--- Using compiler: {COMPILER}")
+CROSS = env["CROSS"]
+if CROSS == "1":
+    env["CXX"] = MINGW
+print("--- Using compiler: {}".format(env["CXX"]))
 
 # Link libraries
 LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system"]
@@ -39,14 +39,14 @@ def pre_build():
     except Exception:
         pass
 
-    if COMPILER == MINGW:
+    if CROSS == "1":
         build_cross()
     elif platform.startswith("win"):
         build_windows()
     elif platform.startswith("linux"):
         build_linux()
     else:
-        print(f"--- No builds for your current OS: {platform}")
+        print("--- No builds for your current OS: " + platform)
         sys.exit(-1)
 
 def build_linux():
