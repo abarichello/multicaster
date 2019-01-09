@@ -27,6 +27,7 @@ MINGW_LINKFLAGS = "-Llib/"
 
 # Common data
 FILENAME = "bin/multicaster"
+WIN_FILENAME = FILENAME + ".exe"
 SOURCES = Glob("src/*.cpp")
 SOURCES.extend(Glob("src/**/*.cpp"))
 BIN_PATH = "./bin"
@@ -71,7 +72,7 @@ def build_windows():
 # Cross compile using x86_64-w64-mingw32-g++
 def build_cross():
     Program(
-        FILENAME,
+        WIN_FILENAME,
         SOURCES,
         CXXFLAGS = MINGW_CXXFLAGS,
         LINKFLAGS = MINGW_LINKFLAGS,

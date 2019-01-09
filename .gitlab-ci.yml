@@ -44,7 +44,6 @@ linux:
 windows:
   stage: package
   script:
-    - mkdir bin/lib
     - cp /SFML-2.5.1/bin/*.dll bin/
     - mv bin $GAME_NAME
   artifacts:
