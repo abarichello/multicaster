@@ -14,7 +14,7 @@ if CROSS == "1":
 print("--- Using compiler: {}".format(env["CXX"]))
 
 # Link libraries
-LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system"]
+LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system", "tgui"]
 WIN_LIBS = ["sfml-graphics", "sfml-window", "sfml-system"]
 MINGW_LIBS = ["-static-libgcc", "-static-libstdc++", "sfml-graphics", "sfml-window", "sfml-system"]
 
