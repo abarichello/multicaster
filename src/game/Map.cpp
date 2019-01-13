@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <iostream>
 
+#include "GLOBAL.h"
 #include "Map.h"
 
 Map::Map() {
@@ -42,7 +43,7 @@ void Map::loadMinimap() {
     texture = tex;
     minimap.setTexture(texture);
     minimap.setPosition(minimapPos);
-    minimap.setScale(minimapScale);
+    minimap.setSize(tgui::Vector2f(minimapSize, minimapSize));
 
     saveMinimapToDisk(minimapPath);
 }

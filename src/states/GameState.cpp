@@ -6,7 +6,8 @@ GameState::GameState(StateManager& stateManager, SharedContext context) : State(
 
 bool GameState::input(const sf::Event& event) {
     if (event.key.code == sf::Keyboard::Escape) {
-        context.window->close();
+        requestPop();
+        requestPush(StateType::MainMenu);
     }
     gui.handleEvent(event);
     return true;

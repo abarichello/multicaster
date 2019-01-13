@@ -5,6 +5,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "GLOBAL.h"
+
 // Map and minimap related data
 class Map {
 public:
@@ -19,7 +21,6 @@ public:
     void drawMinimap(sf::RenderWindow& window);
     void saveMinimapToDisk(const std::string& path);
     sf::Vector2f minimapPos = sf::Vector2f(200, 200);
-    sf::Vector2f minimapScale = sf::Vector2f(12, 12);
     sf::Uint8 transparency = 200;
 
 private:
@@ -32,6 +33,7 @@ private:
     sf::Color unknown = sf::Color(12, 247, 12, transparency);
 
     const std::string minimapPath = "./minimap.png";
+    float minimapSize = Global::resolution.width * 0.17;
 
     // TODO: Load map from elsewhere
     int map[24][24] = {
