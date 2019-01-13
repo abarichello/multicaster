@@ -8,6 +8,7 @@ bool GameState::input(const sf::Event& event) {
     if (event.key.code == sf::Keyboard::Escape) {
         context.window->close();
     }
+    gui.handleEvent(event);
     return true;
 }
 
@@ -17,5 +18,7 @@ bool GameState::update(float delta) {
 }
 
 void GameState::draw() {
-    player1.draw(*context.window);
+    sf::RenderWindow& window = *context.window;
+    player1.draw(window);
+    gui.draw();
 }

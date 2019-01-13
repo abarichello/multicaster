@@ -1,5 +1,6 @@
 #pragma once
 
+#include <TGUI/Gui.hpp>
 #include <memory>
 
 #include "StateType.h"
@@ -29,6 +30,7 @@ protected:
     void requestPop();
     void requestClear();
     SharedContext context;
+    tgui::Gui gui;
 
 private:
     StateManager* stateManager;

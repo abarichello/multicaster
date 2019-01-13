@@ -37,7 +37,9 @@ void Map::loadMinimap() {
         }
     }
 
-    texture.loadFromImage(image);
+    sf::Texture tex;
+    tex.loadFromImage(image);
+    texture = tex;
     minimap.setTexture(texture);
     minimap.setPosition(minimapPos);
     minimap.setScale(minimapScale);
@@ -46,7 +48,7 @@ void Map::loadMinimap() {
 }
 
 void Map::drawMinimap(sf::RenderWindow& window) {
-    window.draw(minimap);
+    minimap.draw(window, sf::RenderStates::Default);
 }
 
 // Save minimap as a image to disk

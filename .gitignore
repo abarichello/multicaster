@@ -18,6 +18,8 @@ Release/
 
 # Dependencies
 SFML**
+include/
+lib/
 
 # Scons
 .sconsign.dblite

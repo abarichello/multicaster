@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <TGUI/Widgets/Canvas.hpp>
 #include <string>
 #include <unordered_map>
 
@@ -23,14 +24,14 @@ public:
 
 private:
     sf::Image image;
-    sf::Texture texture;
-    sf::Sprite minimap;
+    tgui::Texture texture;
+    tgui::Sprite minimap;
 
     sf::Color background = sf::Color(170, 170, 170, transparency);
     sf::Color border = sf::Color(100, 100, 100, transparency);
     sf::Color unknown = sf::Color(12, 247, 12, transparency);
 
-    const std::string minimapPath = "minimap.png";
+    const std::string minimapPath = "./minimap.png";
 
     // TODO: Load map from elsewhere
     int map[24][24] = {
