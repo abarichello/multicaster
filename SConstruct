@@ -15,14 +15,14 @@ print("--- Using compiler: {}".format(env["CXX"]))
 
 # Link libraries
 LINUX_LIBS = ["stdc++", "sfml-graphics", "sfml-window", "sfml-system", "tgui"]
-WIN_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system"]
-MINGW_LIBS = ["-static-libgcc", "-static-libstdc++", "tgui", "sfml-graphics", "sfml-window", "sfml-system"]
+WIN_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
+MINGW_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
 
 # Compiler/Linker flags
 LINUX_CXXFLAGS = "-Isrc/ -I/usr/include/"
 LINUX_LINKFLAGS = "-Wl,-rpath,.'$ORIGIN'/lib"
 WIN_CXXFLAGS = "/Isrc/ /std:c++17 /O2 /FS /ZI /W2 /EHsc"
-MINGW_CXXFLAGS = "-Isrc/ -Iinclude/"
+MINGW_CXXFLAGS = "-Isrc/ -Iinclude/ -static-libgcc -static-libstdc++"
 MINGW_LINKFLAGS = "-Llib/"
 
 # Common data
