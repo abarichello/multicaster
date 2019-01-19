@@ -5,8 +5,8 @@
 
 const unsigned short SERVER_PORT = 5000;
 
-namespace Server {
-    enum class PacketType {
+namespace Packet {
+    enum class Server {
         BroadcastMessage,
         SpawnSelf,
         PlayerConnect,
@@ -14,12 +14,10 @@ namespace Server {
         SpawnEnemy,
         MissionSuccess
     };
-};
 
-namespace Client {
-    enum class PacketType { PlayerEvent, PositionUpdate, Quit };
-};
+    enum class Client { PlayerEvent, PositionUpdate, Quit };
+};  // namespace Packet
 
 namespace PlayerAction {
-    enum class Action { MoveForward, MoveBackward, MoveLeft, MoveRight, TurnLeft, TurnRight };
+    enum { MoveForward, MoveBackward, MoveLeft, MoveRight, TurnLeft, TurnRight };
 };
