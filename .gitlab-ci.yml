@@ -19,8 +19,6 @@ linux:
     name: $GAME_NAME-linux64
     paths:
       - $GAME_NAME
-  except:
-    - wip@gitlab-org/gitlab-ce
 
 windows:
   stage: build
@@ -29,14 +27,15 @@ windows:
     - mkdir include && mkdir lib
     - cp -r /SFML-2.5.1/include .
     - cp -r /SFML-2.5.1/lib .
+    - cp -r /TGUI-0.8/include .
+    - cp -r /TGUI-0.8/lib .
     # Build
     - scons --cross=1 -j 4
     # Package
     - cp /SFML-2.5.1/bin/*.dll bin/
+    - cp /TGUI-0.8/bin/*.dll bin/
     - mv bin $GAME_NAME
   artifacts:
     name: $GAME_NAME-windows64
     paths:
       - $GAME_NAME
-  except:
-    - wip@gitlab-org/gitlab-ce

@@ -76,7 +76,9 @@ def build_cross():
         SOURCES,
         CXXFLAGS = MINGW_CXXFLAGS,
         LINKFLAGS = MINGW_LINKFLAGS,
-        LIBS = LINUX_LIBS,
+        LIBS = MINGW_LIBS,
+        CPPPATH = "./include",
+        LIBPATH = "./lib",
     )
 
 def post_build():
