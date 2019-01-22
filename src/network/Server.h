@@ -19,7 +19,7 @@ private:
         RemotePeer();
         sf::TcpSocket socket;
         sf::Time lastPacket;
-        std::vector<sf::Int32> playerID;
+        std::vector<sf::Int32> playerIDs;
         bool ready;
         bool timedout;
     };
@@ -32,14 +32,19 @@ private:
     using PeerPtr = std::unique_ptr<RemotePeer>;
 
 private:
+    void setListening(bool enable);
     void executionThread();
     void serverTick();
+    sf::Time now() const;
 
     void handleIncomingConnections();
+    void handleDisconnections();
+
+    void handleIncomingPackets();
+    void handleIncomingPacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout);
 
     void broadcastMessage(const std::string& message);
-
-    sf::Time now() const;
+    void sendToAll(sf::Packet& packet);
 
     sf::Thread thread;
     sf::TcpListener listenerSocket;
@@ -51,7 +56,8 @@ private:
     std::vector<PeerPtr> peers;  // size = connected players +1
 
     const std::size_t MAX_PLAYERS = 4;
-    sf::Int32 idCounter = 1;           // identifier counter representing nº of player instances
     std::size_t connectedPlayers = 0;  // unique peers connected
+
+    sf::Int32 idCounter = 1;  // identifier counter representing nº of player instances
     std::size_t entityCount = 0;
 };

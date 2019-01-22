@@ -10,7 +10,7 @@ namespace Packet {
         BroadcastMessage,
         SpawnSelf,
         PlayerConnect,
-        PlayerDisconnected,
+        PlayerDisconnect,
         SpawnEnemy,
         MissionSuccess
     };
