@@ -1,8 +1,8 @@
 #include "Debug.h"
-#include "Path.h"
+#include "util/Filepath.h"
 
 Debug::Debug(sf::Vector2f textPosition) {
-    debugFont.loadFromFile(Path::DEBUG_FONT);
+    debugFont.loadFromFile(Filepath::DEBUG_FONT);
     debugText.setFont(debugFont);
     debugText.setCharacterSize(35);
     debugText.setFillColor(sf::Color::White);

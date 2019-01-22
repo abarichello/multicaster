@@ -1,11 +1,11 @@
 #include "PauseState.h"
 #include "GLOBAL.h"
-#include "Path.h"
+#include "util/Filepath.h"
 
 PauseState::PauseState(StateManager& stateManager, SharedContext context)
     : State(stateManager, context), mask(sf::Vector2f(context.window->getSize())) {
     mask.setFillColor(sf::Color(0, 0, 0, 154));
-    pauseFont.loadFromFile(Path::MENU_FONT);
+    pauseFont.loadFromFile(Filepath::MENU_FONT);
 
     pauseText.setFont(pauseFont);
     pauseText.setString("PAUSED");

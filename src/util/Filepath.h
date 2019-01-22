@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Path {
+namespace Filepath {
     // Fonts
     const std::string DEBUG_FONT = "./resources/fonts/debugfont.ttf";
     const std::string MENU_FONT = "./resources/fonts/menufont.ttf";
@@ -12,4 +12,4 @@ namespace Path {
 
     // File where a group of wall textures is placed
     const std::string ATLAS_TEXTURE = "./resources/textures/atlas.png";
-};  // namespace Path
+};  // namespace Filepath
