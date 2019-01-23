@@ -41,7 +41,7 @@ private:
     void handleDisconnections();
 
     void handleIncomingPackets();
-    void handleIncomingPacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout);
+    void handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout);
 
     void broadcastMessage(const std::string& message);
     void sendToAll(sf::Packet& packet);
@@ -49,6 +49,7 @@ private:
     sf::Thread thread;
     sf::TcpListener listenerSocket;
     sf::Clock clock;
+    sf::Time timedoutThreshold = sf::Time(sf::seconds(3.0f));
     bool waitThreadEnd = false;
     bool listening = false;
 

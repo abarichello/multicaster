@@ -100,9 +100,34 @@ void Server::handleDisconnections() {
 }
 
 void Server::handleIncomingPackets() {
+    bool playerTimedout = false;
+
+    for (PeerPtr& peer : peers) {
+        if (peer->ready) {
+            sf::Packet packet;
+            while (peer->socket.receive(packet) == sf::Socket::Done) {
+                handlePacket(packet, *peer, playerTimedout);
+                peer->lastPacket = now();
+                packet.clear();
+            }
+
+            if (peer->lastPacket + timedoutThreshold <= now()) {
+                peer->timedout = true;
+                playerTimedout = true;
+            }
+        }
+    }
+
+    if (playerTimedout) {
+        handleDisconnections();
+    }
 }
 
-void Server::handleIncomingPacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout) {
+void Server::handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout) {
+    sf::Int32 packetHeader;
+    packet >> packetHeader;
+
+    switch (packetHeader) {}
 }
 
 void Server::broadcastMessage(const std::string& message) {
@@ -118,4 +143,9 @@ void Server::broadcastMessage(const std::string& message) {
 }
 
 void Server::sendToAll(sf::Packet& packet) {
+    for (PeerPtr& peer : peers) {
+        if (peer->ready) {
+            peer->socket.send(packet);
+        }
+    }
 }
