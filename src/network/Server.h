@@ -44,6 +44,7 @@ private:
     void handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout);
 
     void broadcastMessage(const std::string& message);
+    void updateClientState();
     void sendToAll(sf::Packet& packet);
 
     sf::Thread thread;

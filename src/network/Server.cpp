@@ -2,6 +2,9 @@
 #include "network/Protocol.h"
 
 Server::Server() : thread(&Server::executionThread, this) {
+    listenerSocket.setBlocking(false);
+    peers[0].reset(new RemotePeer());
+    thread.launch();
 }
 
 Server::~Server() {
@@ -32,9 +35,38 @@ void Server::setListening(bool enable) {
 }
 
 void Server::executionThread() {
+    setListening(true);
+
+    sf::Time stepInterval = sf::seconds(1.0f / 60.0f);  // 60 Hz
+    sf::Time tickInterval = sf::seconds(1.0f / 30.0f);  // 30 Hz
+    sf::Time stepTime = sf::Time::Zero;
+    sf::Time tickTime = sf::Time::Zero;
+
+    sf::Clock stepClock, tickClock;
+    while (!waitThreadEnd) {
+        handleIncomingPackets();
+        handleIncomingConnections();
+
+        stepTime = stepClock.restart();
+        tickTime = tickClock.restart();
+
+        // Fixed update step
+        while (stepTime >= stepInterval) {
+        }
+
+        // Server update capped to 30 Hz
+        while (tickTime >= tickInterval) {
+            serverTick();
+        }
+
+        sf::sleep(sf::milliseconds(100));  // sleep the remaining frame time
+    }
 }
 
 void Server::serverTick() {
+    updateClientState();
+
+    // TODO: Check for win condition
 }
 
 sf::Time Server::now() const {
@@ -140,6 +172,18 @@ void Server::broadcastMessage(const std::string& message) {
             peers[i]->socket.send(packet);
         }
     }
+}
+
+void Server::updateClientState() {
+    sf::Packet packet;
+    packet << static_cast<sf::Int32>(Packet::Server::UpdateClientState);
+    packet << static_cast<sf::Int32>(playersInfo.size());
+
+    // Send each playerID and position
+    for (auto info : playersInfo) {
+        packet << info.first << info.second.position.x << info.second.position.x;
+    }
+    sendToAll(packet);
 }
 
 void Server::sendToAll(sf::Packet& packet) {
