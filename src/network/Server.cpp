@@ -13,9 +13,27 @@ Server::~Server() {
 }
 
 void Server::notifyPlayerSpawn(sf::Int32 playerID) {
+    for (std::size_t i = 0; i < connectedPlayers; ++i) {
+        if (peers[i]->ready) {
+            sf::Packet packet;
+            packet << static_cast<sf::Int32>(Packet::Server::PlayerConnect);
+            packet << playerID;
+            packet << playersInfo[playerID].position.x << playersInfo[playerID].position.y;
+            peers[i]->socket.send(packet);
+        }
+    }
 }
 
 void Server::notifyPlayerEvent(sf::Int32 playerID, sf::Int32 action) {
+    for (std::size_t i = 0; i < connectedPlayers; ++i) {
+        if (peers[i]->ready) {
+            sf::Packet packet;
+            packet << static_cast<sf::Int32>(Packet::Server::PlayerEvent);
+            packet << playerID;
+            packet << action;
+            peers[i]->socket.send(packet);
+        }
+    }
 }
 
 // RemotePeer constructor
