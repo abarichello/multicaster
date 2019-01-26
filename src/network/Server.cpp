@@ -177,7 +177,9 @@ void Server::handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& t
     sf::Int32 packetHeader;
     packet >> packetHeader;
 
-    switch (packetHeader) {}
+    switch (packetHeader) {
+        // TODO: Handle Packages::Client packages
+    }
 }
 
 void Server::broadcastMessage(const std::string& message) {
