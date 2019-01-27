@@ -13,15 +13,15 @@
 
 class MultiplayerState {
 public:
-    MultiplayerState(StateManager& manager, State::SharedContext context, bool isHost);
+    MultiplayerState(StateManager& manager, State::SharedContext context, bool host);
 
     virtual void draw();
     virtual bool event(const sf::Event& event);
     virtual bool update(float delta);
 
 private:
-    void updateBroadcastMessage(sf::Time elapsedTime);
     void handlePacket(sf::Int32 packetType, sf::Packet& packet);
+    void updateBroadcastMessage(sf::Time elapsedTime);
 
     using PlayerPtr = std::unique_ptr<Player>;
 
@@ -31,12 +31,19 @@ private:
 
     std::unique_ptr<Server> server;
     std::map<int, PlayerPtr> playerList;
-    std::vector<sf::Int32> playerIDs;
+    // std::vector<sf::Int32> playerIDs;
     sf::TcpSocket socket;
-    sf::Clock tickClock;
-    bool conected = false;
 
     std::vector<std::string> broadcasts;
     sf::Text broadcastText;
     sf::Time broadcastElapsedTime;
+
+    bool host;
+    bool connected = false;
+    bool gameStarted = false;
+
+    const sf::Time CONNECTION_TIMEOUT = sf::seconds(5.0f);
+    sf::Clock tickClock;
+    sf::Clock failedConnection;
+    sf::Time lastPacketReceived = sf::Time::Zero;
 };

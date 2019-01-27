@@ -4,9 +4,10 @@
 #include <SFML/System/Vector2.hpp>
 
 const unsigned short SERVER_PORT = 5000;
+const sf::IpAddress LOCALHOST = "127.0.0.1";
 
 namespace Packet {
-    enum class Server {
+    enum Server {
         BroadcastMessage,   // broadcast to all clients chat - (std::string)
         SpawnSelf,          // used to spawn host's aircraft, start position - (float. float)
         PlayerConnect,      // different client connected, id and start position - (sf::Int32, float, float)
@@ -18,7 +19,7 @@ namespace Packet {
         MissionSuccess      // end of mission, no body
     };
 
-    enum class Client { PlayerEvent, PositionUpdate, Quit };
+    enum Client { EventPlayer, PositionUpdate, Quit };
 };  // namespace Packet
 
 namespace PlayerAction {
