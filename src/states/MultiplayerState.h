@@ -31,7 +31,7 @@ private:
 
     std::unique_ptr<Server> server;
     std::map<int, PlayerPtr> playerList;
-    // std::vector<sf::Int32> playerIDs;
+    sf::Int32 playerID;
     sf::TcpSocket socket;
 
     std::vector<std::string> broadcasts;
