@@ -7,7 +7,7 @@ class PauseState : public State {
 public:
     PauseState(StateManager& stateManager, SharedContext context);
 
-    virtual bool input(const sf::Event& event);
+    virtual bool handleEvent(const sf::Event& event);
     virtual bool update(float delta);
     virtual void draw();
 

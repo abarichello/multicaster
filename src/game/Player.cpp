@@ -19,7 +19,7 @@ Player::Player(sf::Vector2f startPosition) : Player() {
     this->position = startPosition;
 }
 
-void Player::input() {
+void Player::handleEvent() {
     // MOVEMENT
     if (keymap.isKeyPressed(KeyMap::FORWARD)) {
         moveForward();
@@ -51,7 +51,7 @@ void Player::input() {
 
 void Player::update(float delta) {
     this->delta = delta;
-    input();
+    handleEvent();
     raycast();
 
     if (debugMode) {

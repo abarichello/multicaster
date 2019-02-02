@@ -21,7 +21,7 @@ public:
     explicit StateManager(State::SharedContext sharedContext);
     ~StateManager();
 
-    void input(const sf::Event& event);
+    void handleEvent(const sf::Event& event);
     void update(float delta);
     void draw();
 

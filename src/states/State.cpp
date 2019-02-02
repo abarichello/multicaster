@@ -6,7 +6,7 @@ State::SharedContext::SharedContext(sf::RenderWindow& window, TextureHolder& tex
 }
 
 State::State(StateManager& stateManager, SharedContext context)
-    : stateManager(&stateManager), context(context), gui(*context.window) {
+    : stateManager(&stateManager), context(context) {
 }
 
 State::~State() {

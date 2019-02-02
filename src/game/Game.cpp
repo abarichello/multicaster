@@ -34,7 +34,7 @@ void Game::run() {
 void Game::event() {
     sf::Event event;
     while (window.pollEvent(event)) {
-        stateManager.input(event);
+        stateManager.handleEvent(event);
         if (event.type == sf::Event::Closed) {
             window.close();
         }

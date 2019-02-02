@@ -21,7 +21,7 @@ public:
     State(StateManager& stateManager, SharedContext context);
     virtual ~State();
 
-    virtual bool input(const sf::Event& event) = 0;
+    virtual bool handleEvent(const sf::Event& event) = 0;
     virtual bool update(float delta) = 0;
     virtual void draw() = 0;
 
@@ -30,7 +30,6 @@ protected:
     void requestPop();
     void requestClear();
     SharedContext context;
-    tgui::Gui gui;
 
 private:
     StateManager* stateManager;

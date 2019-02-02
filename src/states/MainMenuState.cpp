@@ -10,7 +10,7 @@ MainMenuState::MainMenuState(StateManager& stateManager, SharedContext context)
     menuText.setPosition(100.0f, 100.0f);
 }
 
-bool MainMenuState::input(const sf::Event& event) {
+bool MainMenuState::handleEvent(const sf::Event& event) {
     if (event.type != sf::Event::KeyPressed) {
         return false;
     }

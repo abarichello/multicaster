@@ -8,9 +8,9 @@ StateManager::StateManager(State::SharedContext context)
 StateManager::~StateManager() {
 }
 
-void StateManager::input(const sf::Event& event) {
+void StateManager::handleEvent(const sf::Event& event) {
     for (auto itr = states.rbegin(); itr != states.rend(); ++itr) {
-        if (!(*itr)->input(event)) {
+        if (!(*itr)->handleEvent(event)) {
             break;
         }
     }

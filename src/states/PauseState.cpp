@@ -14,7 +14,7 @@ PauseState::PauseState(StateManager& stateManager, SharedContext context)
     pauseText.setPosition(posiiton);
 }
 
-bool PauseState::input(const sf::Event& event) {
+bool PauseState::handleEvent(const sf::Event& event) {
     if (event.key.code == sf::Keyboard::Escape) {
         requestPop();
         return false;

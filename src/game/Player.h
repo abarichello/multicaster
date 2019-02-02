@@ -13,7 +13,7 @@ public:
     Player();
     Player(sf::Vector2f startPosition);
 
-    void input();
+    void handleEvent();
     void update(float delta);
     void raycast();
     void draw(sf::RenderWindow& window);
