@@ -3,16 +3,12 @@
 #include "StateManager.h"
 
 MainMenuState::MainMenuState(StateManager& stateManager, SharedContext context)
-    : State(stateManager, context) {
-    menuText.setFont(context.fonts->get(Resources::MENU_FONT));
-    menuText.setString("MAIN MENU");
-    menuText.setCharacterSize(Global::resolution.width / 30);
-    menuText.setPosition(100.0f, 100.0f);
+    : State(stateManager, context), gui(*context.window) {
 }
 
-bool MainMenuState::handleEvent(const sf::Event& event) {
+void MainMenuState::handleEvent(const sf::Event& event) {
     if (event.type != sf::Event::KeyPressed) {
-        return false;
+        return;
     }
 
     auto keyPressed = event.key.code;
@@ -23,14 +19,12 @@ bool MainMenuState::handleEvent(const sf::Event& event) {
     if (keyPressed == sf::Keyboard::Escape) {
         requestClear();
     }
-    return true;
+    gui.handleEvent(event);
 }
 
-bool MainMenuState::update(float delta) {
-    return true;
+void MainMenuState::update(float delta) {
 }
 
 void MainMenuState::draw() {
-    sf::RenderWindow& window = *context.window;
-    window.draw(menuText);
+    gui.draw();
 }

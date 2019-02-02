@@ -3,17 +3,16 @@
 #include "State.h"
 #include "StateManager.h"
 #include "util/ResourceHolder.h"
+#include "gui/MainMenuGUI.h"
 
 class MainMenuState : public State {
 public:
     MainMenuState(StateManager& stateManager, SharedContext context);
 
-    virtual bool handleEvent(const sf::Event& event);
-    virtual bool update(float delta);
+    virtual void handleEvent(const sf::Event& event);
+    virtual void update(float delta);
     virtual void draw();
 
 private:
-    FontHolder fonts;
-    sf::Font fontss;
-    sf::Text menuText;
+    MainMenuGUI gui;
 };

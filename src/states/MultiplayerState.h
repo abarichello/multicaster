@@ -16,8 +16,8 @@ public:
     MultiplayerState(StateManager& manager, State::SharedContext context, bool host);
 
     virtual void draw();
-    virtual bool event(const sf::Event& event);
-    virtual bool update(float delta);
+    virtual void event(const sf::Event& event);
+    virtual void update(float delta);
 
 private:
     void handlePacket(sf::Int32 packetType, sf::Packet& packet);

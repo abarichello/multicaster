@@ -21,8 +21,8 @@ public:
     State(StateManager& stateManager, SharedContext context);
     virtual ~State();
 
-    virtual bool handleEvent(const sf::Event& event) = 0;
-    virtual bool update(float delta) = 0;
+    virtual void handleEvent(const sf::Event& event) = 0;
+    virtual void update(float delta) = 0;
     virtual void draw() = 0;
 
 protected:

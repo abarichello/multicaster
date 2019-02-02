@@ -24,11 +24,11 @@ MultiplayerState::MultiplayerState(StateManager& manager, State::SharedContext c
 void MultiplayerState::draw() {
 }
 
-bool MultiplayerState::event(const sf::Event& event) {
-    return true;
+void MultiplayerState::event(const sf::Event& event) {
+    return;
 }
 
-bool MultiplayerState::update(float delta) {
+void MultiplayerState::update(float delta) {
     // Handle messages from server
     if (connected) {
         sf::Packet packet;
@@ -40,7 +40,7 @@ bool MultiplayerState::update(float delta) {
             if (lastPacketReceived > CONNECTION_TIMEOUT) {
                 connected = false;
                 failedConnection.restart();
-                return false;
+                return;
             }
         }
 
@@ -55,7 +55,6 @@ bool MultiplayerState::update(float delta) {
             tickClock.restart();
         }
     }
-    return true;
 }
 
 void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) {

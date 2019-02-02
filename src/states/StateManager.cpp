@@ -10,19 +10,14 @@ StateManager::~StateManager() {
 
 void StateManager::handleEvent(const sf::Event& event) {
     for (auto itr = states.rbegin(); itr != states.rend(); ++itr) {
-        if (!(*itr)->handleEvent(event)) {
-            break;
-        }
+        (*itr)->handleEvent(event);
     }
 }
 
 void StateManager::update(float delta) {
     for (auto itr = states.rbegin(); itr != states.rend(); ++itr) {
-        if (!(*itr)->update(delta)) {
-            break;
-        }
+        (*itr)->update(delta);
     }
-
     applyPendingChanges();
 }
 

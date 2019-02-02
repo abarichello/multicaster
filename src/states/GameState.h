@@ -8,8 +8,8 @@ class GameState : public State {
 public:
     GameState(StateManager& stateManager, SharedContext context);
 
-    virtual bool handleEvent(const sf::Event& event);
-    virtual bool update(float delta);
+    virtual void handleEvent(const sf::Event& event);
+    virtual void update(float delta);
     virtual void draw();
 
 private:

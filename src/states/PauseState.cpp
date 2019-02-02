@@ -14,19 +14,18 @@ PauseState::PauseState(StateManager& stateManager, SharedContext context)
     pauseText.setPosition(posiiton);
 }
 
-bool PauseState::handleEvent(const sf::Event& event) {
+void PauseState::handleEvent(const sf::Event& event) {
     if (event.key.code == sf::Keyboard::Escape) {
         requestPop();
-        return false;
+        return;
     }
     if (event.key.code == sf::Keyboard::Q) {
         context.window->close();
     }
-    return true;
 }
 
-bool PauseState::update(float delta) {
-    return true;
+void PauseState::update(float delta) {
+    return;
 }
 
 void PauseState::draw() {
