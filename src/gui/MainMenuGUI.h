@@ -10,5 +10,6 @@ public:
     void draw();
 
 private:
+    sf::RenderWindow* window;
     tgui::Gui gui;
 };

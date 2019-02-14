@@ -2,8 +2,8 @@
 
 #include "State.h"
 #include "StateManager.h"
-#include "util/ResourceHolder.h"
 #include "gui/MainMenuGUI.h"
+#include "util/ResourceHolder.h"
 
 class MainMenuState : public State {
 public:

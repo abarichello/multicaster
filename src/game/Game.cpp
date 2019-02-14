@@ -37,6 +37,8 @@ void Game::event() {
         stateManager.handleEvent(event);
         if (event.type == sf::Event::Closed) {
             window.close();
+        } else if (event.type == sf::Event::Resized) {
+            window.setView(sf::View(sf::FloatRect(0.f, 0.f, (float)event.size.width, (float)event.size.height)));
         }
     }
 }
