@@ -8,7 +8,7 @@ MultiplayerState::MultiplayerState(StateManager& manager, State::SharedContext c
         server.reset(new Server());
         ip = LOCALHOST;
     } else {
-        // TODO: Handle user-inserted IP using tgui
+        // TODO: Handle user-inserted IP
         // ip =
     }
 

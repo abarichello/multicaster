@@ -12,4 +12,8 @@ namespace Filepath {
 
     // File where a group of wall textures is placed
     const std::string ATLAS_TEXTURE = "./resources/textures/atlas.png";
+
+    // Scripts
+    const std::string LUA_LOG = "./resources/scripts/log.lua";
+    const std::string LUA_CONFIG = "./resources/scripts/config.lua";
 };  // namespace Filepath

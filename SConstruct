@@ -15,7 +15,7 @@ print("--- Using compiler: {}".format(env["CXX"]))
 
 # Link libraries
 LINUX_LIBS = ["stdc++", "tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
-WIN_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
+WIN_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network", "lua53"]
 MINGW_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
 
 # Compiler/Linker flags
