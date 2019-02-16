@@ -18,7 +18,7 @@ PS:
 ## Compiling
 ### Arch Linux
 ```
-sudo pacman -S libsfml-dev tgui-git
+sudo pacman -S libsfml-dev tgui-git lua
 scons
 ./bin/multicaster
 ```

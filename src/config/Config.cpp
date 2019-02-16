@@ -7,14 +7,7 @@
 void Config::startup() {
     sol::state lua(sol::c_call<decltype(&panic), &panic>);
     lua.open_libraries(sol::lib::base, sol::lib::io);
-
-    // Equivalent to 'local lualog = require "log"' in Lua code
-    std::ifstream lualogFile(Filepath::LUA_LOG);
-    std::stringstream stream;
-    stream << lualogFile.rdbuf();
-    std::string contents = stream.str();
-
-    lua.require_script("lualog", contents);
+    lua.require_file("lualog", Filepath::LUA_LOG);
     lua.do_file(Filepath::LUA_CONFIG);
     createConfigFile(lua);
 }

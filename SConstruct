@@ -14,12 +14,12 @@ if CROSS == "1":
 print("--- Using compiler: {}".format(env["CXX"]))
 
 # Link libraries
-LINUX_LIBS = ["stdc++", "tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
+LINUX_LIBS = ["stdc++", "tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network", "lua53"]
 WIN_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network", "lua53"]
-MINGW_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network"]
+MINGW_LIBS = ["tgui", "sfml-graphics", "sfml-window", "sfml-system", "sfml-network", "lua53"]
 
 # Compiler/Linker flags
-LINUX_CXXFLAGS = "-Isrc/ -I/usr/include/"
+LINUX_CXXFLAGS = "-Isrc/ -I/usr/include/ -Iinclude/"
 LINUX_LINKFLAGS = "-Wl,-rpath,.'$ORIGIN'/lib"
 WIN_CXXFLAGS = "/Isrc/ /std:c++17 /O2 /FS /ZI /W2 /EHsc"
 MINGW_CXXFLAGS = "-Isrc/ -Iinclude/ -static-libgcc -static-libstdc++"
