@@ -1,12 +1,16 @@
 #include <SFML/Graphics.hpp>
+#include <sol.hpp>
 
 #include "GLOBAL.h"
 #include "config/Config.h"
 #include "game/Game.h"
+#include "util/Lua.h"
 
 int main() {
+    sol::state lua;
+    Lua::startLua(lua);
+
     Game game;
-    Config::startup();
     game.run();
     return 0;
 }
