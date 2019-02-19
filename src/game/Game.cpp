@@ -1,11 +1,11 @@
 #include "Game.h"
-#include "util/Filepath.h"
 #include "states/GameState.h"
 #include "states/MainMenuState.h"
 #include "states/State.h"
+#include "util/Filepath.h"
 
 Game::Game()
-    : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Fullscreen),
+    : window(sf::VideoMode().getDesktopMode(), "multicaster", sf::Style::Default),
       stateManager(State::SharedContext(window, textures, fonts)) {
     window.setFramerateLimit(Global::MAX_FRAMERATE);
     window.setVerticalSyncEnabled(true);

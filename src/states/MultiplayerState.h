@@ -23,6 +23,8 @@ private:
     void handlePacket(sf::Int32 packetType, sf::Packet& packet);
     void updateBroadcastMessage(sf::Time elapsedTime);
 
+    sf::IpAddress getIPFromFile();
+
     using PlayerPtr = std::unique_ptr<Player>;
 
     sf::RenderWindow& window;

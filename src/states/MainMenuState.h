@@ -2,7 +2,6 @@
 
 #include "State.h"
 #include "StateManager.h"
-#include "gui/MainMenuGUI.h"
 #include "util/ResourceHolder.h"
 
 class MainMenuState : public State {
@@ -14,5 +13,5 @@ public:
     virtual void draw();
 
 private:
-    MainMenuGUI gui;
+    tgui::Gui gui;
 };

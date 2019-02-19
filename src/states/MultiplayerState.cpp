@@ -1,3 +1,5 @@
+#include <fstream>
+
 #include "MultiplayerState.h"
 #include "network/Protocol.h"
 
@@ -8,8 +10,7 @@ MultiplayerState::MultiplayerState(StateManager& manager, State::SharedContext c
         server.reset(new Server());
         ip = LOCALHOST;
     } else {
-        // TODO: Handle user-inserted IP
-        // ip =
+        ip = getIPFromFile();
     }
 
     if (socket.connect(ip, SERVER_PORT, CONNECTION_TIMEOUT) == sf::TcpSocket::Done) {
@@ -68,4 +69,12 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
 }
 
 void MultiplayerState::updateBroadcastMessage(sf::Time elapsedTime) {
+}
+
+// TODO: placeholder until a save file is implemented
+sf::IpAddress MultiplayerState::getIPFromFile() {
+    std::ifstream file("ip.txt");
+    std::string ipString;
+    file >> ipString;
+    return sf::IpAddress(ipString);
 }
