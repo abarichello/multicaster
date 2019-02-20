@@ -8,8 +8,9 @@ RUN apt-get update \
     build-essential \
     g++ \
     g++-mingw-w64-x86-64 \
-    libsfml-dev \
+    liblua5.3-0 \
     liblua5.3-dev \
+    libsfml-dev \
     lua5.3 \
     scons \
     software-properties-common \
@@ -27,5 +28,5 @@ RUN wget -S --tries=3 -O tgui.zip https://github.com/texus/TGUI/releases/downloa
     && unzip tgui.zip
 
 RUN wget -S --tries=3 -O sol.hpp https://github.com/ThePhD/sol2/releases/download/v2.20.6/sol.hpp
-RUN wget -S --tries=3 -O lua53.zip 'https://onedrive.live.com/download.aspx?cid=E05E4118C4109044&authKey=!AN3RUdA5ybdvi9c&resid=E05E4118C4109044!1113&canary=YL14ve2cRJBsIYhXpfN4uow%2B8skZAExYCx4S%2BeSpabE%3D2&ithint=.zip' \
+RUN wget -S --tries=3 -O lua53.zip 'https://downloads.sourceforge.net/project/luabinaries/5.3.5/Windows Libraries/Dynamic/lua-5.3.5_Win64_dllw6_lib.zip?r=https://sourceforge.net/projects/luabinaries/files/5.3.5/Windows%20Libraries/Dynamic/&ts=1550692616&use_mirror=ufpr' \
     && unzip lua53.zip -d ./lua/

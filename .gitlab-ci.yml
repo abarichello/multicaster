@@ -34,12 +34,13 @@ windows:
     - cp -r /TGUI-0.8/lib .
     - cp /sol.hpp ./include/
     - cp -r /lua/include .
-    - cp -r /lua/lib .
+    - cp -r /lua/*.a ./lib
     # Build
     - scons --cross=1 -j 4
     # Package
     - cp /SFML-2.5.1/bin/*.dll bin/
     - cp /TGUI-0.8/bin/*.dll bin/
+    - cp /lua/*.dll bin/
     - mv bin $GAME_NAME
   artifacts:
     name: $GAME_NAME-windows64
