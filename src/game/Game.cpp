@@ -60,5 +60,5 @@ void Game::loadResources() {
 
 void Game::registerStates() {
     stateManager.registerState<MainMenuState>(StateType::MainMenu);
-    stateManager.registerState<GameState>(StateType::Game);
+    stateManager.registerState<GameState>(StateType::SingleplayerGame);
 }

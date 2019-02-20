@@ -28,8 +28,8 @@ void MainMenuState::setupUI() {
 }
 
 void MainMenuState::buttonPressed(Button button) {
+    requestPop();
     switch (button) {
-        requestPop();
         case Button::Host:
             requestPush(StateType::HostMultiplayer);
             break;
