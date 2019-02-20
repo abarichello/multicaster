@@ -3,5 +3,7 @@
 enum class StateType {
     None,
     MainMenu,
-    Game,
+    SingleplayerGame,
+    HostMultiplayer,
+    PeerMultiplayer,
 };

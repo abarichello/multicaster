@@ -30,7 +30,5 @@ protected:
     void requestPop();
     void requestClear();
     SharedContext context;
-
-private:
     StateManager* stateManager;
 };
