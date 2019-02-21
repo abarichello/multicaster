@@ -7,7 +7,7 @@
 
 class Server {
 public:
-    explicit Server();
+    Server();
     ~Server();
 
     void notifyPlayerSpawn(sf::Int32 playerID);

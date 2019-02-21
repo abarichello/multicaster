@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "states/GameState.h"
 #include "states/MainMenuState.h"
+#include "states/MultiplayerState.h"
+#include "states/PauseState.h"
 #include "states/State.h"
 #include "util/Filepath.h"
 
@@ -61,4 +63,6 @@ void Game::loadResources() {
 void Game::registerStates() {
     stateManager.registerState<MainMenuState>(StateType::MainMenu);
     stateManager.registerState<GameState>(StateType::SingleplayerGame);
+    stateManager.registerState<MultiplayerState>(StateType::HostMultiplayer, true);
+    stateManager.registerState<MultiplayerState>(StateType::PeerMultiplayer, false);
 }

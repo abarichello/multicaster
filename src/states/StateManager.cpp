@@ -43,7 +43,11 @@ bool StateManager::isEmpty() const {
     return states.empty();
 }
 
-// Apply changes to the stack at the end of frame to prevent pointer errors
+int StateManager::size() const {
+    return states.size();
+}
+
+// Apply changes to the stack at the end of frame
 void StateManager::applyPendingChanges() {
     for (PendingChange change : pendingList) {
         switch (change.action) {

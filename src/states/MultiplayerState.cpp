@@ -3,8 +3,8 @@
 #include "MultiplayerState.h"
 #include "network/Protocol.h"
 
-MultiplayerState::MultiplayerState(StateManager& manager, State::SharedContext context, bool host)
-    : window(*context.window), host(host) {
+MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedContext context, bool host)
+    : State(stateManager, context), host(host) {
     sf::IpAddress ip;
     if (host) {
         server.reset(new Server());
@@ -25,7 +25,7 @@ MultiplayerState::MultiplayerState(StateManager& manager, State::SharedContext c
 void MultiplayerState::draw() {
 }
 
-void MultiplayerState::event(const sf::Event& event) {
+void MultiplayerState::handleEvent(const sf::Event& event) {
     return;
 }
 

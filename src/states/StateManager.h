@@ -29,10 +29,13 @@ public:
     void pop();
     void clear();
     bool isEmpty() const;
-    void applyPendingChanges();
+    int size() const;
 
+    void applyPendingChanges();
     template <typename T>
     void registerState(StateType type);
+    template <typename T, typename Parameter>
+    void registerState(StateType type, Parameter param);
 
 private:
     struct PendingChange {
@@ -52,7 +55,15 @@ private:
 template <typename T>
 void StateManager::registerState(StateType type) {
     stateFactory[type] = [this]() {
-        auto ptr = State::Ptr(new T(*this, context));
+        State::Ptr ptr = State::Ptr(new T(*this, context));
+        return ptr;
+    };
+}
+
+template <typename T, typename Parameter>
+void StateManager::registerState(StateType type, Parameter param) {
+    stateFactory[type] = [this, param]() {
+        State::Ptr ptr = State::Ptr(new T(*this, context, param));
         return ptr;
     };
 }

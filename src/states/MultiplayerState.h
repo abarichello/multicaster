@@ -11,12 +11,12 @@
 #include "network/Server.h"
 #include "util/ResourceHolder.h"
 
-class MultiplayerState {
+class MultiplayerState : public State {
 public:
-    MultiplayerState(StateManager& manager, State::SharedContext context, bool host);
+    MultiplayerState(StateManager& stateManager, State::SharedContext context, bool host);
 
     virtual void draw();
-    virtual void event(const sf::Event& event);
+    virtual void handleEvent(const sf::Event& event);
     virtual void update(float delta);
 
 private:
@@ -27,7 +27,6 @@ private:
 
     using PlayerPtr = std::unique_ptr<Player>;
 
-    sf::RenderWindow& window;
     TextureHolder textureHolder;
     Map map;
 
@@ -40,7 +39,7 @@ private:
     sf::Text broadcastText;
     sf::Time broadcastElapsedTime;
 
-    bool host;
+    bool host = true;
     bool connected = false;
     bool gameStarted = false;
 
