@@ -38,8 +38,9 @@ windows:
     # Build
     - scons --cross=1 -j 4
     # Package
-    - cp /SFML-2.5.1/bin/*.dll bin/
-    - cp /TGUI-0.8/bin/*.dll bin/
+    - cp /SFML-2.5.1/bin/openal32.dll bin/
+    - cp /SFML-2.5.1/bin/sfml-*-2.dll bin/
+    - cp /TGUI-0.8/bin/tgui.dll bin/
     - cp /lua/*.dll bin/
     - mv bin $GAME_NAME
   artifacts:
