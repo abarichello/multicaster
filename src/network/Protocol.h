@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Config.hpp>
+#include <SFML/Network.hpp>
 #include <SFML/System/Vector2.hpp>
 
 const unsigned short SERVER_PORT = 5000;

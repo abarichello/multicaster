@@ -2,8 +2,7 @@ FROM ubuntu:18.10
 LABEL author="artur@barichello.me"
 
 # Dependencies required to build on linux and to cross compile for windows 64bits
-RUN apt-get update \
-    && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     binutils-dev \
     build-essential \
     g++ \

@@ -23,6 +23,7 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
 }
 
 void MultiplayerState::draw() {
+    return;
 }
 
 void MultiplayerState::handleEvent(const sf::Event& event) {
@@ -71,7 +72,7 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
 void MultiplayerState::updateBroadcastMessage(sf::Time elapsedTime) {
 }
 
-// TODO: placeholder until a save file is implemented
+// TODO: placeholder until a save file is implemented for last visited server
 sf::IpAddress MultiplayerState::getIPFromFile() {
     std::ifstream file("ip.txt");
     std::string ipString;

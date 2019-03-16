@@ -1,9 +1,12 @@
-#include "network/Server.h"
-#include "network/Protocol.h"
+#include <iostream>
 
-Server::Server() : thread(&Server::executionThread, this) {
+#include "network/Protocol.h"
+#include "network/Server.h"
+
+Server::Server() : thread(&Server::executionThread, this), peers(1) {
     listenerSocket.setBlocking(false);
     peers[0].reset(new RemotePeer());
+    std::cout << "Lauching server" << std::endl;
     thread.launch();
 }
 
