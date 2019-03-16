@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Network.hpp>
+#include <TGUI/TGUI.hpp>
 #include <map>
 #include <memory>
 #include <string>
@@ -14,6 +15,7 @@
 class MultiplayerState : public State {
 public:
     MultiplayerState(StateManager& stateManager, State::SharedContext context, bool host);
+    void setupGUI();
 
     virtual void draw();
     virtual void handleEvent(const sf::Event& event);
@@ -35,9 +37,8 @@ private:
     sf::Int32 playerID;
     sf::TcpSocket socket;
 
-    std::vector<std::string> broadcasts;
-    sf::Text broadcastText;
-    sf::Time broadcastElapsedTime;
+    sf::Clock fadeChatClock;
+    sf::Time fadeChatTime = sf::seconds(5.0f);
 
     bool host = true;
     bool connected = false;
@@ -47,4 +48,7 @@ private:
     sf::Clock tickClock;
     sf::Clock failedConnection;
     sf::Time lastPacketReceived = sf::Time::Zero;
+
+    tgui::Gui gui;
+    tgui::ChatBox::Ptr chatBox = tgui::ChatBox::create();
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "network/Protocol.h"
 #include "network/Server.h"
@@ -6,7 +7,6 @@
 Server::Server() : thread(&Server::executionThread, this), peers(1) {
     listenerSocket.setBlocking(false);
     peers[0].reset(new RemotePeer());
-    std::cout << "Lauching server" << std::endl;
     thread.launch();
 }
 
@@ -56,6 +56,7 @@ void Server::setListening(bool enable) {
 }
 
 void Server::executionThread() {
+    std::cout << "SERVER: Lauching server" << std::endl;
     setListening(true);
 
     sf::Time stepInterval = sf::seconds(1.0f / 60.0f);  // 60 Hz
@@ -73,11 +74,13 @@ void Server::executionThread() {
 
         // Fixed update step
         while (stepTime >= stepInterval) {
+            stepTime -= stepInterval;
         }
 
         // Server update capped to 30 Hz
         while (tickTime >= tickInterval) {
             serverTick();
+            tickTime -= tickInterval;
         }
 
         sf::sleep(sf::milliseconds(100));  // sleep the remaining frame time
@@ -86,7 +89,6 @@ void Server::executionThread() {
 
 void Server::serverTick() {
     updateClientState();
-
     // TODO: Check for win condition
 }
 

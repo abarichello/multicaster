@@ -55,9 +55,9 @@ void Map::drawMinimap(sf::RenderWindow& window) {
 // Save minimap as a image to disk
 void Map::saveMinimapToDisk(const std::string& path) {
     if (!std::remove(path.c_str())) {
-        std::cerr << "Failed while removing minimap" << std::endl;
+        std::cerr << "MAP: Failed while removing minimap.png" << std::endl;
     }
     if (!image.saveToFile(path)) {
-        std::cerr << "Failed while saving minimap image" << std::endl;
+        std::cerr << "MAP: Failed while saving minimap.png " << std::endl;
     }
 }

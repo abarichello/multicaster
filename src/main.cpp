@@ -7,6 +7,8 @@
 #include "util/Lua.h"
 
 int main() {
+    puts("");
+
     sol::state lua;
     Lua::startLua(lua);
 

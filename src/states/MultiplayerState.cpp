@@ -4,7 +4,9 @@
 #include "network/Protocol.h"
 
 MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedContext context, bool host)
-    : State(stateManager, context), host(host) {
+    : State(stateManager, context), host(host), gui(*context.window) {
+    setupGUI();
+
     sf::IpAddress ip;
     if (host) {
         server.reset(new Server());
@@ -17,16 +19,25 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
         connected = true;
     } else {
         failedConnection.restart();
+        chatBox->addLine("Failed connection");
     }
-
     socket.setBlocking(false);
 }
 
+void MultiplayerState::setupGUI() {
+    gui.add(chatBox);
+    chatBox->setPosition(0, 0);
+    chatBox->setSize(300, 300);
+    chatBox->addLine("--- CHAT START ---");
+}
+
 void MultiplayerState::draw() {
+    gui.draw();
     return;
 }
 
 void MultiplayerState::handleEvent(const sf::Event& event) {
+    gui.handleEvent(event);
     return;
 }
 
@@ -42,6 +53,7 @@ void MultiplayerState::update(float delta) {
             if (lastPacketReceived > CONNECTION_TIMEOUT) {
                 connected = false;
                 failedConnection.restart();
+                chatBox->addLine("You got disconnected");
                 return;
             }
         }
@@ -64,7 +76,7 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
         case Packet::Server::BroadcastMessage:
             std::string message;
             packet >> message;
-            broadcasts.push_back(message);
+            chatBox->addLine(message);
             break;
     }
 }
