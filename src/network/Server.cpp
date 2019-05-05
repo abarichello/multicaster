@@ -109,12 +109,10 @@ void Server::handleIncomingConnections() {
         packet << idCounter;
         packet << playersInfo[idCounter].position.x;
         packet << playersInfo[idCounter].position.y;
-
         peers[connectedPlayers]->playerIDs.push_back(idCounter);
 
         broadcastMessage("Player joined");
         notifyPlayerSpawn(idCounter++);
-        //
 
         peers[connectedPlayers]->socket.send(packet);
         peers[connectedPlayers]->ready = true;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 
 #include "GLOBAL.h"
 #include "Map.h"
@@ -10,8 +11,8 @@
 
 class Player {
 public:
-    Player();
-    Player(sf::Vector2f startPosition);
+    Player(sf::Int32 playerID, sf::TcpSocket* socket);
+    ~Player();
 
     void handleEvent();
     void update(float delta);
@@ -39,6 +40,8 @@ private:
     float turnSpeed = 1.7f;
     float delta = 0.0f;
 
+    sf::TcpSocket* socket;
+    sf::Int32 playerID;
     Map map;
 
     Debug debug;

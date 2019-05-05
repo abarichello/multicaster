@@ -10,7 +10,7 @@ const sf::IpAddress LOCALHOST = "127.0.0.1";
 namespace Packet {
     enum Server {
         BroadcastMessage,   // broadcast to all clients chat - (std::string)
-        SpawnSelf,          // used to spawn host's aircraft, start position - (float. float)
+        SpawnSelf,          // used to spawn host's aircraft, id and start position - (float. float)
         PlayerConnect,      // different client connected, id and start position - (sf::Int32, float, float)
         PlayerEvent,        // notifies of a player Action, id and action id - (sf::Int32, sf::int32)
         PlayerDisconnect,   // aircraft id to be destroyed - (sf::Int32)

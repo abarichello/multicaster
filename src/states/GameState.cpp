@@ -1,7 +1,8 @@
 #include "GameState.h"
 #include "GLOBAL.h"
 
-GameState::GameState(StateManager& stateManager, SharedContext context) : State(stateManager, context) {
+GameState::GameState(StateManager& stateManager, SharedContext context)
+    : State(stateManager, context), player(1, nullptr) {
 }
 
 void GameState::handleEvent(const sf::Event& event) {
@@ -12,10 +13,10 @@ void GameState::handleEvent(const sf::Event& event) {
 }
 
 void GameState::update(float delta) {
-    player1.update(delta);
+    player.update(delta);
 }
 
 void GameState::draw() {
     sf::RenderWindow& window = *context.window;
-    player1.draw(window);
+    player.draw(window);
 }

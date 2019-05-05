@@ -13,5 +13,5 @@ public:
     virtual void draw();
 
 private:
-    Player player1;
+    Player player;
 };

@@ -33,7 +33,7 @@ private:
     Map map;
 
     std::unique_ptr<Server> server;
-    std::map<int, PlayerPtr> playerList;
+    std::map<int, PlayerPtr> players;
     sf::Int32 playerID;
     sf::TcpSocket socket;
 

@@ -1,22 +1,24 @@
 #include <cmath>
 
-#include "util/Filepath.h"
 #include "Player.h"
+#include "util/Filepath.h"
 #include "util/Math.h"
 
-Player::Player()
-    : position(2.0f, 2.0f),
+Player::Player(sf::Int32 playerID, sf::TcpSocket* socket)
+    : position(sf::Vector2f(2.5f, 2.5f)),
       direction(0.0f, 1.0f),
       plane(-0.65f, 0.0f),
       lines(sf::Lines, screenRes.width),
       fps(),
       debug(sf::Vector2f(0.0f, 50.0f)),
+      playerID(playerID),
+      socket(socket),
       keymap(),
       map() {
 }
 
-Player::Player(sf::Vector2f startPosition) : Player() {
-    this->position = startPosition;
+Player::~Player() {
+    delete socket;
 }
 
 void Player::handleEvent() {

@@ -73,11 +73,22 @@ void MultiplayerState::update(float delta) {
 
 void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) {
     switch (packetHeader) {
-        case Packet::Server::BroadcastMessage:
+        case Packet::Server::BroadcastMessage: {
             std::string message;
             packet >> message;
             chatBox->addLine(message);
             break;
+        }
+        case Packet::Server::SpawnSelf: {
+            sf::Int32 id;
+            sf::Vector2f spawnPosition;
+            packet >> id >> spawnPosition.x >> spawnPosition.y;
+            Player* player = new Player(id, &socket);
+            player->position = spawnPosition;
+            players[id].reset(player);
+            gameStarted = true;
+            break;
+        }
     }
 }
 
