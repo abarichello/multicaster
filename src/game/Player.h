@@ -46,5 +46,6 @@ private:
 
     Debug debug;
     FPS fps;
+    bool focused = true;
     bool debugMode = true;
 };

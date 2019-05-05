@@ -111,7 +111,7 @@ void Server::handleIncomingConnections() {
         packet << playersInfo[idCounter].position.y;
         peers[connectedPlayers]->playerIDs.push_back(idCounter);
 
-        broadcastMessage("Player joined");
+        broadcastMessage("Player number " + std::to_string(idCounter) + " joined");
         notifyPlayerSpawn(idCounter++);
 
         peers[connectedPlayers]->socket.send(packet);

@@ -26,22 +26,28 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
 
 void MultiplayerState::setupGUI() {
     gui.add(chatBox);
-    chatBox->setPosition(0, 0);
-    chatBox->setSize(300, 300);
+    chatBox->setPosition(100, 800);
+    chatBox->setSize(500, 300);
+    chatBox->setInheritedOpacity(0.8f);
     chatBox->addLine("--- CHAT START ---");
 }
 
 void MultiplayerState::draw() {
+    if (currPlayerID != sf::Int32(-1)) {
+        players[currPlayerID]->draw(*context.window);
+    }
     gui.draw();
-    return;
 }
 
 void MultiplayerState::handleEvent(const sf::Event& event) {
     gui.handleEvent(event);
-    return;
 }
 
 void MultiplayerState::update(float delta) {
+    if (currPlayerID != sf::Int32(-1)) {
+        players[currPlayerID]->update(delta);
+    }
+
     // Handle messages from server
     if (connected) {
         sf::Packet packet;
@@ -81,12 +87,16 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
         }
         case Packet::Server::SpawnSelf: {
             sf::Int32 id;
-            sf::Vector2f spawnPosition;
-            packet >> id >> spawnPosition.x >> spawnPosition.y;
+            sf::Vector2f spawnPos;
+            packet >> id >> spawnPos.x >> spawnPos.y;
+
+            currPlayerID = id;
             Player* player = new Player(id, &socket);
-            player->position = spawnPosition;
+            player->position = spawnPos;
             players[id].reset(player);
             gameStarted = true;
+            chatBox->addLine(std::to_string(id) + ": Joined game at position: " + std::to_string(spawnPos.x) +
+                             ":" + std::to_string(spawnPos.y));
             break;
         }
     }

@@ -22,6 +22,10 @@ Player::~Player() {
 }
 
 void Player::handleEvent() {
+    if (!focused) {
+        return;
+    }
+
     // MOVEMENT
     if (keymap.isKeyPressed(KeyMap::FORWARD)) {
         moveForward();
@@ -155,6 +159,7 @@ void Player::draw(sf::RenderWindow& window) {
         fps.draw(window);
         debug.draw(window);
     }
+    focused = window.hasFocus();
 }
 
 void Player::moveForward() {
