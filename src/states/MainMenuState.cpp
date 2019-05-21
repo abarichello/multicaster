@@ -48,8 +48,7 @@ void MainMenuState::handleEvent(const sf::Event& event) {
         return;
     }
 
-    sf::Keyboard::Key keyPressed = event.key.code;
-    if (keyPressed == sf::Keyboard::Escape) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         requestClear();
     }
     gui.handleEvent(event);

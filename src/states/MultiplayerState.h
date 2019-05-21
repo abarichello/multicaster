@@ -10,7 +10,6 @@
 #include "game/Map.h"
 #include "game/Player.h"
 #include "network/Server.h"
-#include "util/ResourceHolder.h"
 
 class MultiplayerState : public State {
 public:
@@ -24,6 +23,8 @@ public:
 private:
     void handlePacket(sf::Int32 packetType, sf::Packet& packet);
     void updateBroadcastMessage(sf::Time elapsedTime);
+
+    void handleChatEvent(const sf::Event& event);
 
     sf::IpAddress getIPFromFile();
 
@@ -52,4 +53,7 @@ private:
 
     tgui::Gui gui;
     tgui::ChatBox::Ptr chatBox = tgui::ChatBox::create();
+    tgui::EditBox::Ptr chatInput = tgui::EditBox::create();
+
+    const float chatOpacity = 0.55f;
 };

@@ -47,7 +47,7 @@ void Player::handleEvent() {
     }
 
     // ETC
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Backspace)) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num0)) {
         position = sf::Vector2f(2.0f, 2.0f);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Tilde)) {
@@ -58,7 +58,6 @@ void Player::handleEvent() {
 void Player::update(float delta) {
     this->delta = delta;
     handleEvent();
-    raycast();
 
     if (debugMode) {
         std::string debugText =
@@ -152,6 +151,7 @@ void Player::raycast() {
 }
 
 void Player::draw(sf::RenderWindow& window) {
+    raycast();
     window.draw(lines);
     map.drawMinimap(window);
 

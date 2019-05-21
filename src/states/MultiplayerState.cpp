@@ -15,21 +15,30 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
         ip = getIPFromFile();
     }
 
-    if (socket.connect(ip, SERVER_PORT, CONNECTION_TIMEOUT) == sf::TcpSocket::Done) {
+    auto connectionStatus = socket.connect(ip, SERVER_PORT, CONNECTION_TIMEOUT);
+    if (connectionStatus == sf::TcpSocket::Done) {
         connected = true;
     } else {
         failedConnection.restart();
         chatBox->addLine("Failed connection");
+        chatBox->addLine("sf::Socket::Status = " + std::to_string(connectionStatus));
     }
     socket.setBlocking(false);
 }
 
 void MultiplayerState::setupGUI() {
-    gui.add(chatBox);
-    chatBox->setPosition(100, 800);
-    chatBox->setSize(500, 300);
-    chatBox->setInheritedOpacity(0.8f);
+    gui.add(chatBox, "chatBox");
+    gui.add(chatInput, "chatInput");
+
+    chatBox->setPosition("7%", "70%");
+    chatBox->setSize("25%", "20%");
+    chatBox->setInheritedOpacity(chatOpacity);
     chatBox->addLine("--- CHAT START ---");
+
+    chatInput->setPosition("chatBox.left", "chatBox.bottom + height / 4");
+    chatInput->setSize("chatBox.width", "chatBox.height / 5");
+    chatInput->setInheritedOpacity(chatOpacity);
+    chatInput->setVisible(false);
 }
 
 void MultiplayerState::draw() {
@@ -41,10 +50,11 @@ void MultiplayerState::draw() {
 
 void MultiplayerState::handleEvent(const sf::Event& event) {
     gui.handleEvent(event);
+    handleChatEvent(event);
 }
 
 void MultiplayerState::update(float delta) {
-    if (currPlayerID != sf::Int32(-1)) {
+    if (chatInput->getText().isEmpty() && currPlayerID != sf::Int32(-1)) {
         players[currPlayerID]->update(delta);
     }
 
@@ -75,6 +85,10 @@ void MultiplayerState::update(float delta) {
             tickClock.restart();
         }
     }
+
+    if (!connected && failedConnection.getElapsedTime() >= sf::seconds(3.0f)) {
+        requestPop();
+    }
 }
 
 void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) {
@@ -103,6 +117,22 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
 }
 
 void MultiplayerState::updateBroadcastMessage(sf::Time elapsedTime) {
+}
+
+void MultiplayerState::handleChatEvent(const sf::Event& event) {
+    if (chatInput->isFocused() && sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        chatInput->setVisible(false);
+        chatInput->setText("");
+    }
+    if (!chatInput->isVisible() && sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
+        chatInput->setFocused(true);
+        chatInput->setVisible(true);
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        chatInput->setText("");
+        // TODO: send message packet
+        chatInput->setVisible(false);
+    }
 }
 
 // TODO: placeholder until a save file is implemented for last visited server
