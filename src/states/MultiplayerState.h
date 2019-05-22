@@ -20,6 +20,8 @@ public:
     virtual void handleEvent(const sf::Event& event);
     virtual void update(float delta);
 
+    void connect(const sf::IpAddress ip);
+
 private:
     void handlePacket(sf::Int32 packetType, sf::Packet& packet);
     void updateBroadcastMessage(sf::Time elapsedTime);
@@ -28,6 +30,7 @@ private:
     void sendChatMessage();
 
     sf::IpAddress getIPFromFile();
+    sf::IpAddress currentIp;
 
     using PlayerPtr = std::unique_ptr<Player>;
     sf::Int32 currPlayerID = sf::Int32(-1);

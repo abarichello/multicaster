@@ -7,22 +7,14 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
     : State(stateManager, context), host(host), gui(*context.window) {
     setupGUI();
 
-    sf::IpAddress ip;
     if (host) {
         server.reset(new Server());
-        ip = LOCALHOST;
+        currentIp = LOCALHOST;
     } else {
-        ip = getIPFromFile();
+        currentIp = LOCALHOST; // TODO: Remove getIpFromFile
     }
 
-    auto connectionStatus = socket.connect(ip, SERVER_PORT, CONNECTION_TIMEOUT);
-    if (connectionStatus == sf::TcpSocket::Done) {
-        connected = true;
-    } else {
-        failedConnection.restart();
-        chatBox->addLine("Failed connection");
-        chatBox->addLine("sf::Socket::Status = " + std::to_string(connectionStatus));
-    }
+    connect(currentIp);
     socket.setBlocking(false);
 }
 
@@ -86,8 +78,19 @@ void MultiplayerState::update(float delta) {
         }
     }
 
-    if (!connected && failedConnection.getElapsedTime() >= sf::seconds(3.0f)) {
-        requestPop();
+    if (!connected && failedConnection.getElapsedTime() >= sf::seconds(1.0f)) {
+        failedConnection.restart();
+        connect(currentIp);
+    }
+}
+
+void MultiplayerState::connect(const sf::IpAddress ip) {
+    auto connectionStatus = socket.connect(ip, SERVER_PORT, CONNECTION_TIMEOUT);
+    if (connectionStatus == sf::TcpSocket::Done) {
+        connected = true;
+    } else {
+        failedConnection.restart();
+        chatBox->addLine("sf::Socket::Status = " + std::to_string(connectionStatus));
     }
 }
 
