@@ -102,13 +102,13 @@ void Server::handleIncomingConnections() {
     }
 
     if (listenerSocket.accept(peers[connectedPlayers]->socket) == sf::TcpListener::Done) {
-        playersInfo[idCounter].position = sf::Vector2f(2.5f, 2.5f);  // starting position
+        playersInfo[idCounter].position = playerStartPos;
 
         sf::Packet packet;
         packet << static_cast<sf::Int32>(Packet::Server::SpawnSelf);
         packet << idCounter;
-        packet << playersInfo[idCounter].position.x;
-        packet << playersInfo[idCounter].position.y;
+        packet << playerStartPos.x;
+        packet << playerStartPos.y;
         peers[connectedPlayers]->playerIDs.push_back(idCounter);
 
         broadcastMessage("Player number " + std::to_string(idCounter) + " joined");
@@ -179,9 +179,12 @@ void Server::handleIncomingPackets() {
 void Server::handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout) {
     sf::Int32 packetHeader;
     packet >> packetHeader;
-
     switch (packetHeader) {
-        // TODO: Handle Packages::Client packages
+        case Packet::Client::ChatMessage:
+            std::string message;
+            packet >> message;
+            broadcastMessage(message);
+            break;
     }
 }
 
@@ -191,7 +194,6 @@ void Server::broadcastMessage(const std::string& message) {
             sf::Packet packet;
             packet << static_cast<sf::Int32>(Packet::Server::BroadcastMessage);
             packet << message;
-
             peers[i]->socket.send(packet);
         }
     }

@@ -21,8 +21,10 @@ sf::Color Map::getColor(sf::Vector2i position) {
     switch (getTile(position)) {
         case 0:
             return background;
+            break;
         case 1:
             return border;
+            break;
         default:
             return sf::Color::Magenta;
     }

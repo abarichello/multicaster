@@ -58,6 +58,7 @@ private:
     std::vector<PeerPtr> peers;  // size = connected players +1
 
     const std::size_t MAX_PLAYERS = 4;
+    const sf::Vector2f playerStartPos = sf::Vector2f(5.f, 5.f);
     std::size_t connectedPlayers = 0;  // unique peers connected
 
     sf::Int32 idCounter = 1;  // identifier counter representing nº of player instances

@@ -129,9 +129,20 @@ void MultiplayerState::handleChatEvent(const sf::Event& event) {
         chatInput->setVisible(true);
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        sendChatMessage();
         chatInput->setText("");
-        // TODO: send message packet
         chatInput->setVisible(false);
+    }
+}
+
+void MultiplayerState::sendChatMessage() {
+    auto txt = chatInput->getText();
+    if (!txt.isEmpty()) {
+        std::string message = std::to_string(currPlayerID) + ": " + txt;
+        sf::Packet packet;
+        packet << static_cast<sf::Int32>(Packet::Client::ChatMessage);
+        packet << message;
+        socket.send(packet);
     }
 }
 

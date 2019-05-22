@@ -5,7 +5,7 @@
 #include "util/Math.h"
 
 Player::Player(sf::Int32 playerID, sf::TcpSocket* socket)
-    : position(sf::Vector2f(2.5f, 2.5f)),
+    : position(playerStartPos),
       direction(0.0f, 1.0f),
       plane(-0.65f, 0.0f),
       lines(sf::Lines, screenRes.width),
@@ -48,7 +48,7 @@ void Player::handleEvent() {
 
     // ETC
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num0)) {
-        position = sf::Vector2f(2.0f, 2.0f);
+        position = playerStartPos;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Tilde)) {
         this->debugMode = !debugMode;
@@ -137,7 +137,7 @@ void Player::raycast() {
         }
 
         // Shadow horizontal walls
-        sf::Color color = sf::Color::White;
+        sf::Color color = sf::Color::Red;
         if (horizontal) {
             color.r /= 2;
             color.g /= 2;

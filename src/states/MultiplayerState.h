@@ -25,6 +25,7 @@ private:
     void updateBroadcastMessage(sf::Time elapsedTime);
 
     void handleChatEvent(const sf::Event& event);
+    void sendChatMessage();
 
     sf::IpAddress getIPFromFile();
 
