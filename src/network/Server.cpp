@@ -179,9 +179,12 @@ void Server::handleIncomingPackets() {
 void Server::handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& timedout) {
     sf::Int32 packetHeader;
     packet >> packetHeader;
-
     switch (packetHeader) {
-        // TODO: Handle Packages::Client packages
+        case Packet::Client::ChatMessage:
+            std::string message;
+            packet >> message;
+            broadcastMessage(message);
+            break;
     }
 }
 
@@ -191,7 +194,6 @@ void Server::broadcastMessage(const std::string& message) {
             sf::Packet packet;
             packet << static_cast<sf::Int32>(Packet::Server::BroadcastMessage);
             packet << message;
-
             peers[i]->socket.send(packet);
         }
     }

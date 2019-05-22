@@ -12,7 +12,7 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
         server.reset(new Server());
         ip = LOCALHOST;
     } else {
-        ip = getIPFromFile();
+        ip = LOCALHOST;
     }
 
     auto connectionStatus = socket.connect(ip, SERVER_PORT, CONNECTION_TIMEOUT);
@@ -130,8 +130,19 @@ void MultiplayerState::handleChatEvent(const sf::Event& event) {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
         chatInput->setText("");
-        // TODO: send message packet
+        sendChatMessage();
         chatInput->setVisible(false);
+    }
+}
+
+void MultiplayerState::sendChatMessage() {
+    auto txt = chatInput->getText();
+    if (!txt.isEmpty()) {
+        std::string message = std::to_string(currPlayerID) + ": " + txt;
+        sf::Packet packet;
+        packet << static_cast<sf::Int32>(Packet::Client::ChatMessage);
+        packet << message;
+        socket.send(packet);
     }
 }
 
