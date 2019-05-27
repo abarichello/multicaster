@@ -11,6 +11,7 @@ int main() {
 
     sol::state lua;
     Lua::startLua(lua);
+    Lua::startSave(lua);
 
     Game game;
     game.run();

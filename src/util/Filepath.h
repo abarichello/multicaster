@@ -15,4 +15,5 @@ namespace Filepath {
 
     // Scripts
     const std::string LUA_LOG = "./resources/scripts/log.lua";
+    const std::string LUA_SAVE = "./resources/scripts/save.lua";
 };  // namespace Filepath
