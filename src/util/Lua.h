@@ -3,8 +3,6 @@
 #include <sol.hpp>
 
 namespace Lua {
-    void startLua(sol::state& lua);
+    sol::state startLua();
     void panic(sol::optional<std::string> maybeMsg);
-
-    void startSave(sol::state& lua);
 }  // namespace Lua

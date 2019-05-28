@@ -3,10 +3,17 @@
 #include "util/Filepath.h"
 #include "util/Lua.h"
 
-void Lua::startLua(sol::state& lua) {
+sol::state Lua::startLua() {
+    sol::state lua;
     lua.set_panic(sol::c_call<decltype(&panic), &panic>);
-    lua.open_libraries(sol::lib::base, sol::lib::io, sol::lib::table, sol::lib::package, sol::lib::string);
+    lua.open_libraries(
+        sol::lib::base,
+        sol::lib::io,
+        sol::lib::table,
+        sol::lib::string
+    );
     lua.require_file("lualog", Filepath::LUA_LOG);
+    return lua;
 }
 
 void Lua::panic(sol::optional<std::string> maybeMsg) {
@@ -15,9 +22,4 @@ void Lua::panic(sol::optional<std::string> maybeMsg) {
         const std::string& msg = maybeMsg.value();
         std::cerr << " | Error: " << msg << std::endl;
     }
-}
-
-void Lua::startSave(sol::state& lua) {
-    lua.script_file(Filepath::LUA_SAVE);
-    lua["start_save"].call();
 }

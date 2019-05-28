@@ -5,13 +5,13 @@
 #include "config/Config.h"
 #include "game/Game.h"
 #include "util/Lua.h"
+#include "util/Savefile.h"
 
 int main() {
     puts("");
 
-    sol::state lua;
-    Lua::startLua(lua);
-    Lua::startSave(lua);
+    sol::state lua = Lua::startLua();
+    Savefile::startSave(lua);
 
     Game game;
     game.run();
