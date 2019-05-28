@@ -5,7 +5,7 @@
 
 void Lua::startLua(sol::state& lua) {
     lua.set_panic(sol::c_call<decltype(&panic), &panic>);
-    lua.open_libraries(sol::lib::base, sol::lib::io, sol::lib::table, sol::lib::package);
+    lua.open_libraries(sol::lib::base, sol::lib::io, sol::lib::table, sol::lib::package, sol::lib::string);
     lua.require_file("lualog", Filepath::LUA_LOG);
 }
 
