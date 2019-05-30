@@ -11,7 +11,7 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
         server.reset(new Server());
         currentIp = LOCALHOST;
     } else {
-        currentIp = LOCALHOST; // TODO: Remove getIpFromFile
+        currentIp = LOCALHOST;  // TODO: Remove getIpFromFile
     }
 
     connect(currentIp);

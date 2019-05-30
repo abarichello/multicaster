@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <sol.hpp>
+#include <string>
 
 #include "GLOBAL.h"
 #include "config/Config.h"
@@ -10,8 +11,7 @@
 int main() {
     puts("");
 
-    sol::state lua = Lua::startLua();
-    Savefile::startSave(lua);
+    Savefile save;
 
     Game game;
     game.run();

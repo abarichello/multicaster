@@ -44,7 +44,7 @@ private:
     sf::TcpSocket socket;
 
     sf::Clock fadeChatClock;
-    sf::Time fadeChatTime = sf::seconds(5.0f); // TODO: Implement fadeout
+    sf::Time fadeChatTime = sf::seconds(5.0f);  // TODO: Implement fadeout
 
     bool host = true;
     bool connected = false;

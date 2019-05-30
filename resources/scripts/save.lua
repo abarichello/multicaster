@@ -1,4 +1,4 @@
-local save_table = {
+save_table = {
     last_ip = "192.168.0.1",
     username = "player",
 }
@@ -9,15 +9,15 @@ local SEPARATOR = "|"
 -- Functions called at every game startup
 function start_save()
     if not save_exists() then
-        create_save_file()
+        write_save_file()
     else
         load_save_file()
     end
     print_save_file()
 end
 
-function create_save_file()
-    lualog.log("Creating a new save file: " .. SAVENAME)
+function write_save_file()
+    lualog.log("Writing save file to: " .. SAVENAME)
     local save = io.open(SAVENAME, "w+")
     for k, v in pairs(save_table) do
         save:write(k .. SEPARATOR .. v .. "\n")

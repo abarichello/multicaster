@@ -20,7 +20,7 @@ namespace Packet {
     };
 
     enum Client {
-        ChatMessage,        // chat message - (std::string)
+        ChatMessage,  // chat message - (std::string)
         EventPlayer,
         PositionUpdate,
         Quit
