@@ -22,7 +22,9 @@ void MainMenuState::setupUI() {
     gui.add(hostButton, "hostButton");
 
     ipAddrInput->setDefaultText("IP ADDRESS");
-    ipAddrInput->setText(LOCALHOST.toString());
+    Savefile save;
+    auto lastIp = save.getSaveData<std::string>("last_ip");
+    ipAddrInput->setText(lastIp);
     ipAddrInput->setSize(150, 35);
     ipAddrInput->setPosition("hostButton.left", bindTop(hostButton) + "hostButton.height" + 10);
     gui.add(ipAddrInput, "ipAddrInput");
@@ -48,8 +50,8 @@ void MainMenuState::buttonPressed(Button button) {
             break;
         case Button::Join: {
             Savefile save;
-            std::string lastIp = ipAddrInput->getText();
-            save.setSaveData("last_ip", lastIp);
+            auto lastIp = ipAddrInput->getText();
+            save.setSaveData<std::string>("last_ip", lastIp);
             requestPush(StateType::PeerMultiplayer);
             break;
         }

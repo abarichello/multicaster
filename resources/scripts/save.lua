@@ -1,5 +1,5 @@
 save_table = {
-    last_ip = "192.168.0.1",
+    last_ip = "127.0.0.1",
     username = "player",
 }
 
