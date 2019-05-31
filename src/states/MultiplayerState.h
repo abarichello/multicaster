@@ -49,7 +49,7 @@ private:
     bool connected = false;
     bool gameStarted = false;
 
-    const sf::Time CONNECTION_TIMEOUT = sf::seconds(5.0f);
+    const sf::Time CONNECTION_TIMEOUT = sf::seconds(2.0f);
     sf::Clock tickClock;
     sf::Clock failedConnection;
     sf::Time lastPacketReceived = sf::Time::Zero;

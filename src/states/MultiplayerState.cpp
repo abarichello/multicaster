@@ -81,9 +81,9 @@ void MultiplayerState::update(float delta) {
         }
     }
 
-    if (!connected && failedConnection.getElapsedTime() >= sf::seconds(1.0f)) {
-        failedConnection.restart();
-        connect(currentIp);
+    if (!connected && failedConnection.getElapsedTime() >= CONNECTION_TIMEOUT) {
+        requestClear();
+        requestPush(StateType::MainMenu);
     }
 }
 
@@ -93,7 +93,7 @@ void MultiplayerState::connect(const sf::IpAddress ip) {
         connected = true;
     } else {
         failedConnection.restart();
-        chatBox->addLine("sf::Socket::Status = " + std::to_string(connectionStatus));
+        chatBox->addLine("Connection error, going back to main menu.");
     }
 }
 
