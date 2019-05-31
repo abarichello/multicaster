@@ -2,6 +2,7 @@
 
 #include <TGUI/TGUI.hpp>
 #include <TGUI/Widgets/Button.hpp>
+#include <TGUI/Widgets/EditBox.hpp>
 
 #include "State.h"
 #include "StateManager.h"
@@ -22,7 +23,8 @@ public:
 
 private:
     tgui::Gui gui;
-    tgui::Button::Ptr spButton;
     tgui::Button::Ptr hostButton;
     tgui::Button::Ptr joinButton;
+    tgui::Button::Ptr spButton;
+    tgui::EditBox::Ptr ipAddrInput;
 };

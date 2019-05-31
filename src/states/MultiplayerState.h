@@ -29,7 +29,7 @@ private:
     void handleChatEvent(const sf::Event& event);
     void sendChatMessage();
 
-    sf::IpAddress getIPFromFile();
+    sf::TcpSocket socket;
     sf::IpAddress currentIp;
 
     using PlayerPtr = std::unique_ptr<Player>;
@@ -41,7 +41,6 @@ private:
     std::unique_ptr<Server> server;
     std::map<int, PlayerPtr> players;
     sf::Int32 playerID;
-    sf::TcpSocket socket;
 
     sf::Clock fadeChatClock;
     sf::Time fadeChatTime = sf::seconds(5.0f);  // TODO: Implement fadeout

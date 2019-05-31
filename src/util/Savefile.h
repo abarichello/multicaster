@@ -1,6 +1,5 @@
 #pragma once
 
-#include <assert.h>
 #include <sol.hpp>
 #include <string>
 
@@ -14,6 +13,7 @@ public:
     template <typename T>
     void setSaveData(std::string key, T data) {
         this->saveLuaState[TABLE_NAME][key] = data;
+        this->writeSaveFile();
     }
 
     template <typename T>

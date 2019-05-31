@@ -18,8 +18,9 @@ end
 
 function write_save_file()
     lualog.log("Writing save file to: " .. SAVENAME)
-    local save = io.open(SAVENAME, "w+")
+    local save = io.open(SAVENAME, "w")
     for k, v in pairs(save_table) do
+        print(v)
         save:write(k .. SEPARATOR .. v .. "\n")
     end
     save:close()

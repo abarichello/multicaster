@@ -1,30 +1,43 @@
 #include "MainMenuState.h"
 #include "GLOBAL.h"
 #include "StateManager.h"
+#include "network/Protocol.h"
+#include "util/Savefile.h"
 
 MainMenuState::MainMenuState(StateManager& stateManager, SharedContext context)
-    : State(stateManager, context), gui(*context.window) {
+    : State(stateManager, context),
+      gui(*context.window),
+      hostButton(tgui::Button::create()),
+      joinButton(tgui::Button::create()),
+      spButton(tgui::Button::create()),
+      ipAddrInput(tgui::EditBox::create()) {
     setupUI();
 }
 
 void MainMenuState::setupUI() {
-    hostButton = tgui::Button::create("CREATE SERVER");
+    hostButton->setText("CREATE SERVER");
     hostButton->setSize(300, 70);
     hostButton->setPosition("&.width / 2 - width / 2", "&.height / 2 - height / 2");
-    gui.add(hostButton, "hostButton");
     hostButton->connect("pressed", [this]() { buttonPressed(Button::Host); });
+    gui.add(hostButton, "hostButton");
 
-    joinButton = tgui::Button::create("JOIN SERVER");
-    joinButton->setSize(300, 70);
-    joinButton->setPosition("hostButton.left", bindTop(hostButton) + "height" + 10);
-    gui.add(joinButton, "joinButton");
+    ipAddrInput->setDefaultText("IP ADDRESS");
+    ipAddrInput->setText(LOCALHOST.toString());
+    ipAddrInput->setSize(150, 35);
+    ipAddrInput->setPosition("hostButton.left", bindTop(hostButton) + "hostButton.height" + 10);
+    gui.add(ipAddrInput, "ipAddrInput");
+
+    joinButton->setText("JOIN SERVER");
+    joinButton->setSize(150, 35);
+    joinButton->setPosition("ipAddrInput.right", "ipAddrInput.top");
     joinButton->connect("pressed", [this]() { buttonPressed(Button::Join); });
+    gui.add(joinButton, "joinButton");
 
-    spButton = tgui::Button::create("SINGLEPLAYER");
+    spButton->setText("SINGLEPLAYER");
     spButton->setSize(300, 35);
     spButton->setPosition("hostButton.left", bindTop(joinButton) + "joinButton.height" + 10);
-    gui.add(spButton, "spButton");
     spButton->connect("pressed", [this]() { buttonPressed(Button::Single); });
+    gui.add(spButton, "spButton");
 }
 
 void MainMenuState::buttonPressed(Button button) {
@@ -33,9 +46,13 @@ void MainMenuState::buttonPressed(Button button) {
         case Button::Host:
             requestPush(StateType::HostMultiplayer);
             break;
-        case Button::Join:
+        case Button::Join: {
+            Savefile save;
+            std::string lastIp = ipAddrInput->getText();
+            save.setSaveData("last_ip", lastIp);
             requestPush(StateType::PeerMultiplayer);
             break;
+        }
         case Button::Single:
             requestPush(StateType::SingleplayerGame);
             break;

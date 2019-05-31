@@ -29,6 +29,7 @@ protected:
     void requestPush(StateType type);
     void requestPop();
     void requestClear();
+
     StateManager* stateManager;
     SharedContext context;
 };

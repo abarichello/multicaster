@@ -2,6 +2,7 @@
 
 #include "MultiplayerState.h"
 #include "network/Protocol.h"
+#include "util/Savefile.h"
 
 MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedContext context, bool host)
     : State(stateManager, context), host(host), gui(*context.window) {
@@ -11,7 +12,9 @@ MultiplayerState::MultiplayerState(StateManager& stateManager, State::SharedCont
         server.reset(new Server());
         currentIp = LOCALHOST;
     } else {
-        currentIp = LOCALHOST;  // TODO: Remove getIpFromFile
+        Savefile save;
+        auto lastIp = save.getSaveData<std::string>("last_ip");
+        currentIp = sf::IpAddress(lastIp);
     }
 
     connect(currentIp);
@@ -147,12 +150,4 @@ void MultiplayerState::sendChatMessage() {
         packet << message;
         socket.send(packet);
     }
-}
-
-// TODO: placeholder until a save file is implemented for last visited server
-sf::IpAddress MultiplayerState::getIPFromFile() {
-    std::ifstream file("ip.txt");
-    std::string ipString;
-    file >> ipString;
-    return sf::IpAddress(ipString);
 }

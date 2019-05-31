@@ -12,9 +12,9 @@ sol::state Lua::startLua() {
 }
 
 void Lua::panic(sol::optional<std::string> maybeMsg) {
-    std::cerr << "LUA PANIC";
+    std::cerr << "LUA PANIC" << std::endl;
     if (maybeMsg) {
         const std::string& msg = maybeMsg.value();
-        std::cerr << " | Error: " << msg << std::endl;
+        std::cerr << "-> Error: " << msg << std::endl;
     }
 }
