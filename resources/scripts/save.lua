@@ -6,14 +6,14 @@ save_table = {
 local SAVENAME = "multicaster.save"
 local SEPARATOR = "|"
 
--- Functions called at every game startup
+-- Functions called at savegame startup
 function start_save()
     if not save_exists() then
         write_save_file()
+        print_save_file()
     else
         load_save_file()
     end
-    print_save_file()
 end
 
 function write_save_file()

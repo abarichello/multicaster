@@ -34,7 +34,6 @@ private:
 
     using PlayerPtr = std::unique_ptr<Player>;
     sf::Int32 currPlayerID = sf::Int32(-1);
-
     TextureHolder textureHolder;
     Map map;
 

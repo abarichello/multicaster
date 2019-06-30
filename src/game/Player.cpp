@@ -1,4 +1,5 @@
 #include <cmath>
+#include <sstream>
 
 #include "Player.h"
 #include "util/Filepath.h"
@@ -60,9 +61,10 @@ void Player::update(float delta) {
     handleEvent();
 
     if (debugMode) {
-        std::string debugText =
-            "PositionX: " + std::to_string(position.x) + " PositionY: " + std::to_string(position.y);
-        debug.setText(debugText);
+        std::stringstream s;
+        s << "PositionX: " << position.x << " PositionY: " << position.y;
+        auto msg = s.str();
+        debug.setText(msg);
     }
     fps.update(delta);
 }

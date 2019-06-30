@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <string>
 
 #include "network/Protocol.h"
@@ -111,7 +112,9 @@ void Server::handleIncomingConnections() {
         packet << playerStartPos.y;
         peers[connectedPlayers]->playerIDs.push_back(idCounter);
 
-        broadcastMessage("Player number " + std::to_string(idCounter) + " joined");
+        std::stringstream s;
+        s << "Player number " << idCounter << " joined";
+        broadcastMessage(s.str());
         notifyPlayerSpawn(idCounter++);
 
         peers[connectedPlayers]->socket.send(packet);

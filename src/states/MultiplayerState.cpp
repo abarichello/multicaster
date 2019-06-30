@@ -103,8 +103,7 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
             std::string message;
             packet >> message;
             chatBox->addLine(message);
-            break;
-        }
+        } break;
         case Packet::Server::SpawnSelf: {
             sf::Int32 id;
             sf::Vector2f spawnPos;
@@ -114,11 +113,14 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
             Player* player = new Player(id, &socket);
             player->position = spawnPos;
             players[id].reset(player);
+
             gameStarted = true;
-            chatBox->addLine(std::to_string(id) + ": Joined game at position: " + std::to_string(spawnPos.x) +
-                             ":" + std::to_string(spawnPos.y));
-            break;
-        }
+            std::stringstream s;
+            s << "Player " << id << ": Joined game at position: (" << spawnPos.x << " , " << spawnPos.y << ")";
+            chatBox->addLine(s.str());
+        } break;
+        case Packet::Server::UpdateClientState: {
+        } break;
     }
 }
 
