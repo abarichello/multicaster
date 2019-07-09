@@ -62,7 +62,7 @@ void Player::update(float delta) {
 
     if (debugMode) {
         std::stringstream s;
-        s << "PositionX: " << position.x << " PositionY: " << position.y;
+        s << "X: " << position.x << "\nY: " << position.y;
         auto msg = s.str();
         debug.setText(msg);
     }

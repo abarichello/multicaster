@@ -45,8 +45,8 @@ private:
     sf::Int32 playerID;
     Map map;
 
-    Debug debug;
     FPS fps;
+    Debug debug;
     bool focused = true;
     bool debugMode = true;
 };

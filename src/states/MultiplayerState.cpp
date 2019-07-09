@@ -74,9 +74,14 @@ void MultiplayerState::update(float delta) {
             sf::Packet positionUpdate;
             positionUpdate << static_cast<sf::Int32>(Packet::Client::PositionUpdate);
             positionUpdate << playerID;
-            // positionUpdate << TODO: Position
-
-            socket.send(positionUpdate);
+            auto localPlayer = players.find(currPlayerID);
+            if (localPlayer == players.end()) {
+                return;
+            }
+            auto playerPos = localPlayer->second->position;
+            positionUpdate << playerPos.x;
+            positionUpdate << playerPos.y;
+            positionUpdate << socket.send(positionUpdate);
             tickClock.restart();
         }
     }
@@ -104,22 +109,65 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
             packet >> message;
             chatBox->addLine(message);
         } break;
+
         case Packet::Server::SpawnSelf: {
-            sf::Int32 id;
             sf::Vector2f spawnPos;
-            packet >> id >> spawnPos.x >> spawnPos.y;
+            packet >> currPlayerID >> spawnPos.x >> spawnPos.y;
 
-            currPlayerID = id;
-            Player* player = new Player(id, &socket);
+            Player* player = new Player(currPlayerID, &socket);
             player->position = spawnPos;
-            players[id].reset(player);
-
+            players[currPlayerID].reset(player);
             gameStarted = true;
+
             std::stringstream s;
-            s << "Player " << id << ": Joined game at position: (" << spawnPos.x << " , " << spawnPos.y << ")";
+            s << "Player " << currPlayerID << ": Joined game at position: (" << spawnPos.x << " , "
+              << spawnPos.y << ")";
             chatBox->addLine(s.str());
         } break;
+
+        case Packet::Server::InitialState: {
+            sf::Int32 playerCount;
+            packet >> playerCount;
+            for (sf::Int32 i = 0; i < playerCount; ++i) {
+                sf::Int32 playerID;
+                sf::Vector2f pos;
+                packet >> playerID >> pos.x >> pos.y;
+
+                players[playerID].reset(new Player(playerID, &socket));
+            }
+        } break;
+
+        case Packet::Server::PlayerConnect: {
+            sf::Int32 playerID;
+            sf::Vector2f playerPos;
+            packet >> playerID >> playerPos.x >> playerPos.y;
+            players[playerID].reset(new Player(playerID, &socket));
+            players[playerID]->position = playerPos;
+        } break;
+
         case Packet::Server::UpdateClientState: {
+            sf::Int32 playerCount;
+            packet >> playerCount;
+            std::cout << "pcount: " << playerCount << "\n";
+            for (sf::Int32 i = 0; i < playerCount; ++i) {
+                sf::Int32 playerID;
+                float x, y;
+                packet >> playerID >> x >> y;
+
+                std::stringstream dbg;
+                dbg << "player " << playerID << " pos " << x << " " << y;
+                std::cout << dbg.str() << "\n";
+
+                auto player = players.find(playerID);
+                if (player != players.end() && playerID != currPlayerID) {
+                    player->second->position.x = x;
+                    player->second->position.y = y;
+                    std::stringstream s;
+                    s << "Player " << player->first << " X: " << x << " Y: " << y;
+                    std::string msg = s.str();
+                    std::cout << "Up:" << msg << "\n";
+                }
+            }
         } break;
     }
 }

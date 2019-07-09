@@ -2,9 +2,9 @@
 
 #include <SFML/Network.hpp>
 #include <TGUI/TGUI.hpp>
-#include <map>
 #include <memory>
 #include <string>
+#include <unordered_map>
 
 #include "State.h"
 #include "game/Map.h"
@@ -38,7 +38,7 @@ private:
     Map map;
 
     std::unique_ptr<Server> server;
-    std::map<int, PlayerPtr> players;
+    std::unordered_map<int, PlayerPtr> players;
     sf::Int32 playerID;
 
     sf::Clock fadeChatClock;

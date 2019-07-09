@@ -3,6 +3,7 @@
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
 #include <memory>
+#include <unordered_map>
 #include <vector>
 
 class Server {
@@ -10,8 +11,8 @@ public:
     Server();
     ~Server();
 
+    void transmitInitialState(sf::TcpSocket& socket);
     void notifyPlayerSpawn(sf::Int32 playerID);
-    // void notifyPlayerRealtimeChange(sf::Int32 playerID, )
     void notifyPlayerEvent(sf::Int32 playerID, sf::Int32 action);
 
 private:
@@ -54,7 +55,7 @@ private:
     bool waitThreadEnd = false;
     bool listening = false;
 
-    std::map<sf::Int32, PlayerInfo> playersInfo;
+    std::unordered_map<sf::Int32, PlayerInfo> playersInfo;
     std::vector<PeerPtr> peers;  // size = connected players +1
 
     const std::size_t MAX_PLAYERS = 4;

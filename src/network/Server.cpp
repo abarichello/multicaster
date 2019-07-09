@@ -16,6 +16,21 @@ Server::~Server() {
     thread.wait();
 }
 
+void Server::transmitInitialState(sf::TcpSocket& socket) {
+    sf::Packet packet;
+    packet << static_cast<sf::Int32>(Packet::Server::InitialState);
+    packet << static_cast<sf::Int32>(idCounter);
+
+    for (int i = 0; i < connectedPlayers; ++i) {
+        if (peers[i]->ready) {
+            for (auto id : peers[i]->playerIDs) {
+                packet << id << playersInfo[id].position.x << playersInfo[id].position.y;
+            }
+        }
+    }
+    socket.send(packet);
+}
+
 void Server::notifyPlayerSpawn(sf::Int32 playerID) {
     for (std::size_t i = 0; i < connectedPlayers; ++i) {
         if (peers[i]->ready) {
@@ -183,11 +198,19 @@ void Server::handlePacket(sf::Packet& packet, RemotePeer& receivingPeer, bool& t
     sf::Int32 packetHeader;
     packet >> packetHeader;
     switch (packetHeader) {
-        case Packet::Client::ChatMessage:
+        case Packet::Client::ChatMessage: {
             std::string message;
             packet >> message;
             broadcastMessage(message);
-            break;
+        } break;
+
+        case Packet::Client::PositionUpdate: {
+            sf::Int32 playerID;
+            float x, y;
+            packet >> playerID >> x >> y;
+            playersInfo[playerID].position.x = x;
+            playersInfo[playerID].position.y = y;
+        } break;
     }
 }
 
@@ -207,9 +230,8 @@ void Server::updateClientState() {
     packet << static_cast<sf::Int32>(Packet::Server::UpdateClientState);
     packet << static_cast<sf::Int32>(playersInfo.size());
 
-    // Send each playerID and position
     for (auto info : playersInfo) {
-        packet << info.first << info.second.position.x << info.second.position.x;
+        packet << info.first << info.second.position.x << info.second.position.y;
     }
     sendToAll(packet);
 }
