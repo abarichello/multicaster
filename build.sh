@@ -13,6 +13,8 @@ function linux() {
     # Package
     mkdir bin/lib
     cp /usr/lib/x86_64-linux-gnu/libsfml-*.so.* bin/lib
+    cp /usr/lib/libtgui.so* bin/lib
+    cp /usr/lib/x86_64-linux-gnu/liblua5.3.so bin/lib
     mv bin $GAME_NAME
 }
 
