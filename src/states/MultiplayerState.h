@@ -33,16 +33,16 @@ private:
     sf::IpAddress currentIp;
 
     using PlayerPtr = std::unique_ptr<Player>;
-    sf::Int32 currPlayerID = sf::Int32(-1);
     TextureHolder textureHolder;
     Map map;
 
     std::unique_ptr<Server> server;
     std::unordered_map<int, PlayerPtr> players;
-    sf::Int32 playerID;
+    sf::Int32 playerID = sf::Int32(-1);
 
+    // TODO: Implement fadeout
     sf::Clock fadeChatClock;
-    sf::Time fadeChatTime = sf::seconds(5.0f);  // TODO: Implement fadeout
+    sf::Time fadeChatTime = sf::seconds(5.0f);
 
     bool host = true;
     bool connected = false;

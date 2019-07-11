@@ -37,8 +37,8 @@ void MultiplayerState::setupGUI() {
 }
 
 void MultiplayerState::draw() {
-    if (currPlayerID != sf::Int32(-1)) {
-        players[currPlayerID]->draw(*context.window);
+    if (playerID != sf::Int32(-1)) {
+        players[playerID]->draw(*context.window);
     }
     gui.draw();
 }
@@ -49,8 +49,8 @@ void MultiplayerState::handleEvent(const sf::Event& event) {
 }
 
 void MultiplayerState::update(float delta) {
-    if (chatInput->getText().isEmpty() && currPlayerID != sf::Int32(-1)) {
-        players[currPlayerID]->update(delta);
+    if (chatInput->getText().isEmpty() && playerID != sf::Int32(-1)) {
+        players[playerID]->update(delta);
     }
 
     // Handle messages from server
@@ -74,7 +74,7 @@ void MultiplayerState::update(float delta) {
             sf::Packet positionUpdate;
             positionUpdate << static_cast<sf::Int32>(Packet::Client::PositionUpdate);
             positionUpdate << playerID;
-            auto localPlayer = players.find(currPlayerID);
+            auto localPlayer = players.find(playerID);
             if (localPlayer == players.end()) {
                 return;
             }
@@ -112,16 +112,15 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
 
         case Packet::Server::SpawnSelf: {
             sf::Vector2f spawnPos;
-            packet >> currPlayerID >> spawnPos.x >> spawnPos.y;
+            packet >> playerID >> spawnPos.x >> spawnPos.y;
 
-            Player* player = new Player(currPlayerID, &socket);
+            Player* player = new Player(playerID, &socket);
             player->position = spawnPos;
-            players[currPlayerID].reset(player);
+            players[playerID].reset(player);
             gameStarted = true;
 
             std::stringstream s;
-            s << "Player " << currPlayerID << ": Joined game at position: (" << spawnPos.x << " , "
-              << spawnPos.y << ")";
+            s << "Player " << playerID << ": Joined game at position: (" << spawnPos.x << " , " << spawnPos.y << ")";
             chatBox->addLine(s.str());
         } break;
 
@@ -159,13 +158,9 @@ void MultiplayerState::handlePacket(sf::Int32 packetHeader, sf::Packet& packet) 
                 std::cout << dbg.str() << "\n";
 
                 auto player = players.find(playerID);
-                if (player != players.end() && playerID != currPlayerID) {
+                if (player != players.end() && playerID != playerID) {
                     player->second->position.x = x;
                     player->second->position.y = y;
-                    std::stringstream s;
-                    s << "Player " << player->first << " X: " << x << " Y: " << y;
-                    std::string msg = s.str();
-                    std::cout << "Up:" << msg << "\n";
                 }
             }
         } break;
@@ -194,7 +189,7 @@ void MultiplayerState::handleChatEvent(const sf::Event& event) {
 void MultiplayerState::sendChatMessage() {
     auto txt = chatInput->getText();
     if (!txt.isEmpty()) {
-        std::string message = std::to_string(currPlayerID) + ": " + txt;
+        std::string message = std::to_string(playerID) + ": " + txt;
         sf::Packet packet;
         packet << static_cast<sf::Int32>(Packet::Client::ChatMessage);
         packet << message;

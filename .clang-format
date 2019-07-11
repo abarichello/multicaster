@@ -32,7 +32,7 @@ NamespaceIndentation: All
 PenaltyBreakBeforeFirstCallParameter: 1
 PenaltyBreakComment: 300
 PenaltyBreakString: 1000
-PenaltyBreakFirstLessLess: 120
+PenaltyBreakFirstLessLess: 110
 PenaltyExcessCharacter: 1
 PenaltyReturnTypeOnItsOwnLine: 1000
 PointerAlignment: Left
