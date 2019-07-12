@@ -19,7 +19,8 @@ public:
     void raycast();
     void draw(sf::RenderWindow& window);
 
-    sf::Vector2f position;
+    const sf::Vector2f playerStartPos = sf::Vector2f(5.f, 5.f);
+    sf::Vector2f position = playerStartPos;
 
 private:
     void moveForward();
@@ -36,7 +37,6 @@ private:
     sf::Vector2f plane;
     sf::VertexArray lines;
 
-    const sf::Vector2f playerStartPos = sf::Vector2f(5.f, 5.f);
     float movementSpeed = 4.0f;
     float turnSpeed = 1.7f;
     float delta = 0.0f;

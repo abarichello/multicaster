@@ -138,17 +138,40 @@ void Player::raycast() {
             drawEnd = screenRes.height - 1;
         }
 
+        sf::Color wallColor = sf::Color::Red;
+
+        // Draw floor
+        sf::Color floorColor;
+        floorColor.r = wallColor.r / 5;
+        floorColor.g = wallColor.g / 5;
+        floorColor.b = wallColor.b / 5;
+
+        float groundPixel = screenRes.height;
+        lines.append(sf::Vertex(sf::Vector2f((float)i, groundPixel), floorColor));
+        groundPixel = (lineHeight * plane.y + screenRes.height) * 0.5f;
+        lines.append(sf::Vertex(sf::Vector2f((float)i, groundPixel), floorColor));
+
+        // Draw ceiling
+        sf::Color ceilingColor;
+        ceilingColor.r = wallColor.r / 11;
+        ceilingColor.g = wallColor.g / 11;
+        ceilingColor.b = wallColor.b / 11;
+
+        float ceilingPixel = 0.f;
+        lines.append(sf::Vertex(sf::Vector2f((float)i, ceilingPixel), ceilingColor));
+        ceilingPixel = (-lineHeight * 1.f - plane.y + screenRes.height) * 0.5f;
+        lines.append(sf::Vertex(sf::Vector2f((float)i, ceilingPixel), ceilingColor));
+
         // Shadow horizontal walls
-        sf::Color color = sf::Color::Red;
         if (horizontal) {
-            color.r /= 2;
-            color.g /= 2;
-            color.b /= 2;
+            wallColor.r /= 2;
+            wallColor.g /= 2;
+            wallColor.b /= 2;
         }
 
         // Append columns to VertexArray
-        lines.append(sf::Vertex(sf::Vector2f((float)i, (float)drawStart), color));
-        lines.append(sf::Vertex(sf::Vector2f((float)i, (float)drawEnd), color));
+        lines.append(sf::Vertex(sf::Vector2f((float)i, (float)drawStart), wallColor));
+        lines.append(sf::Vertex(sf::Vector2f((float)i, (float)drawEnd), wallColor));
     }
 }
 
